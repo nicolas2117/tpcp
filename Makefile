@@ -72,13 +72,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 
 #To SRC
 $(SRC_DIR)%.c : $(SRC_DIR)%.l 
-	mkdir -p $(INC_DIR)
 	$(FLEX) -o $@ $<
-	rm -f $(INC_DIR)parser.h #On efface l'ancien fichier parser.h du dossier "include"
-	mv -v $(SRC_DIR)parser.h $(INC_DIR) #Déplacement du nouveau parser.h dans le dossier "include"
 
 $(SRC_DIR)%.c : $(SRC_DIR)%.y
-	$(BISON) -o $@ $<
+	mkdir -p $(INC_DIR)
+	$(BISON) -d -o $@ $<
+	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp #Déplacement du nouveau parser.h dans le dossier "include"
 
 #Gestion des dépendances
 $(DEP_DIR)%.d: $(SRC_DIR)%.c

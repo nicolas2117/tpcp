@@ -2,29 +2,39 @@
 # Configuration du Makefile                                                    #
 ################################################################################
 
-# user dirs
+# Dossier source
 SRC_DIR         = ./src/
+# Dossier objets
 OBJ_DIR         = ./obj/
+# Dossier dépendances
 DEP_DIR         = ./dept/
-BIN_DIR         = ./
+# Dossier executable
+BIN_DIR         = ./bin/
 
-# bin name
-BIN             = compilateur
+# Nom de l'executable
+BIN             = ding
 
-# additionnal lib and includes dir
+# Libs
 LIB_DIR         = ./
+# Includes
 INC_DIR         = ./include/
 
-# compile commands
+# Compilation C
 CC      = g++
+# Compilation C++
 CPP     = g++
+# Linker
 LD      = g++
+# Commande Flex
 FLEX    = flex
+# Commande Bison
 BISON   = bison -d
 
-# flags and libs
+# Flags CPP
 CPPFLAGS        = -I$(INC_DIR) -g -Wall -pipe
+# Flags C
 CFLAGS          = -I$(INC_DIR) -g -Wall -pipe
+# Flags du linker
 LDFLAGS = -L$(LIB_DIR) -lfl
 
 ################################################################################
@@ -35,7 +45,6 @@ SRCS_CPP        = $(wildcard $(SRC_DIR)*.cpp)
 SRCS_C          = $(wildcard $(SRC_DIR)*.c)
 SRCS_L          = $(wildcard $(SRC_DIR)*.l)
 SRCS_Y          = $(wildcard $(SRC_DIR)*.y)
-
 
 #Liste des dépendances .cpp, .c ==> .d
 DEPS    = $(SRCS_CPP:$(SRC_DIR)%.cpp=$(DEP_DIR)%.d) $(SRCS_C:$(SRC_DIR)%.c=$(DEP_DIR)%.d)

@@ -58,13 +58,16 @@ all: $(BIN_DIR)/$(BIN)
 
 #To executable
 $(BIN_DIR)/$(BIN): $(OBJS)
+	mkdir -p $(BIN_DIR)
 	$(LD) $+ -o $@ $(LDFLAGS)
         
 #To Objets
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 	
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	mkdir -p $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) -o $@ -c $<
 
 #To SRC
@@ -78,14 +81,14 @@ $(SRC_DIR)%.c : $(SRC_DIR)%.y
 
 #Gestion des dépendances
 $(DEP_DIR)%.d: $(SRC_DIR)%.c
+	mkdir -p $(DEP_DIR)
 	$(CC) $(CFLAGS) -MM -MD -o $@ $<
 
 $(DEP_DIR)%.d: $(SRC_DIR)%.cpp
+	mkdir -p $(DEP_DIR)
 	$(CPP) $(CPPFLAGS) -MM -MD -o $@ $<
 
 -include $(DEPS)
-
-
 
 .PHONY: clean distclean
 

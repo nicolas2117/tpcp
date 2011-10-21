@@ -14,16 +14,16 @@ public:
     ~TableDesIdentificateurs();
       
     //enregistre un identificateur et renvoie son numéro dans la table
-    int ajouterId(const std::string& newId);
+    int ajouter(const char *str);
     
     //affiche la table des identificateurs
-    void affichageMapId();
+    void afficher(std::ostream &flux);
     
     //retourne l'identificateur à partir de son numéro
-    const std::string& getId (int num);
+    const std::string& getNom (int id);
     
     //retourne le numéro de l'identificateur
-    int getNum (std::string id);
+    int getId (std::string nom);
     
 private:
     //map

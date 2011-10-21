@@ -1,11 +1,9 @@
 #include <iostream>
 #include <TableDesIdentificateurs.hpp>
 
-using namespace std;
-
 TableDesIdentificateurs::TableDesIdentificateurs()
 {
-    _mapId[0] = "init";
+    
 }
 
 TableDesIdentificateurs::~TableDesIdentificateurs()
@@ -13,17 +11,17 @@ TableDesIdentificateurs::~TableDesIdentificateurs()
     
 }
 
-const std::string& TableDesIdentificateurs::getId(int num)
+const std::string& TableDesIdentificateurs::getNom(int id)
 {
-    return _mapId[num];
+    return _mapId[id];
 }
 
-int TableDesIdentificateurs::getNum(std::string id)
+int TableDesIdentificateurs::getId(std::string nom)
 {
     std::map<int, std::string>::const_iterator it; //itérateur sur map
     for (it = _mapId.begin(); it !=_mapId.end(); it++)
     {
-        if (id == it->second)
+        if (nom == it->second)
         {
             return it->first;
         }
@@ -31,21 +29,21 @@ int TableDesIdentificateurs::getNum(std::string id)
     return -1;
 }
 
-void TableDesIdentificateurs::affichageMapId()
+void TableDesIdentificateurs::afficher(std::ostream &flux)
 {
     std::map<int, std::string>::const_iterator it; //itérateur sur map
     for(it = _mapId.begin(); it != _mapId.end(); it++)
     {
-        cout << (*it).first << " => " << (*it).second << endl;
+        flux << (*it).first << " => " << (*it).second << std::endl;
     }
 }
 
-int TableDesIdentificateurs::ajouterId(const std::string& newId)
+int TableDesIdentificateurs::ajouter(const char *str)
 {
-    int temp = getNum(newId);
+    int temp = getId(str);
     if (temp==-1)
     {
-        _mapId[_mapId.size()] = newId;
+        _mapId[_mapId.size()] = str;
         return _mapId.size()-1;
     }
     else

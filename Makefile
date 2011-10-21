@@ -28,12 +28,12 @@ LD      = g++
 # Commande Flex
 FLEX    = flex
 # Commande Bison
-BISON   = bison -d
+BISON   = bison
 
 # Flags CPP
-CPPFLAGS        = -I$(INC_DIR) -g -Wall -pipe
+CPPFLAGS = -I$(INC_DIR) -g -Wall -pipe
 # Flags C
-CFLAGS          = -I$(INC_DIR) -g -Wall -pipe
+CFLAGS  = -I$(INC_DIR) -g -Wall -pipe
 # Flags du linker
 LDFLAGS = -L$(LIB_DIR) -lfl
 
@@ -76,7 +76,7 @@ $(SRC_DIR)%.c : $(SRC_DIR)%.l
 
 $(SRC_DIR)%.c : $(SRC_DIR)%.y
 	mkdir -p $(INC_DIR)
-	$(BISON) -o $@ $<
+	$(BISON) -d -o $@ $<
 	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp
 
 #Gestion des dépendances

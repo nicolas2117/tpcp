@@ -28,12 +28,12 @@ LD      = g++
 # Commande Flex
 FLEX    = flex
 # Commande Bison
-BISON   = bison -d
+BISON   = bison
 
 # Flags CPP
-CPPFLAGS        = -I$(INC_DIR) -g -Wall -pipe
+CPPFLAGS = -I$(INC_DIR) -g -Wall -pipe
 # Flags C
-CFLAGS          = -I$(INC_DIR) -g -Wall -pipe
+CFLAGS  = -I$(INC_DIR) -g -Wall -pipe
 # Flags du linker
 LDFLAGS = -L$(LIB_DIR) -lfl
 
@@ -77,7 +77,7 @@ $(SRC_DIR)%.c : $(SRC_DIR)%.l
 $(SRC_DIR)%.c : $(SRC_DIR)%.y
 	mkdir -p $(INC_DIR)
 	$(BISON) -d -o $@ $<
-	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp #Déplacement du nouveau parser.h dans le dossier "include"
+	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp
 
 #Gestion des dépendances
 $(DEP_DIR)%.d: $(SRC_DIR)%.c
@@ -125,24 +125,3 @@ distclean: clean
 
 tar: clean
 	tar -cvzf ../${shell basename `pwd`}.tgz ../${shell basename `pwd`}
-
-
-
-# build tests
-build-tests: .build-tests-post
-
-.build-tests-pre:
-# Add your pre 'build-tests' code here...
-
-.build-tests-post: .build-tests-impl
-# Add your post 'build-tests' code here...
-
-
-# run tests
-test: .test-post
-
-.test-pre:
-# Add your pre 'test' code here...
-
-.test-post: .test-impl
-# Add your post 'test' code here...

@@ -1,20 +1,32 @@
-#include <stdlib.h>
+#include <cstdlib>
+#include <stdio.h>
 #include <iostream>
-#include <TableDesIdentificateurs.hpp>
-#include <string.h>
+#include <parser.hpp>
+
+extern FILE* yyin;
+extern int yyleng;
+extern char* yytext;
+extern int yylex();
+extern int yyparse();
 
 int main(int argc, char *argv[])
 {
-    TableDesIdentificateurs TDI;
-    char s[50];
-    strcpy(s, "testa");
-    TDI.ajouter(s);
-    strcpy(s, "testb");
-    TDI.ajouter(s);
-    TDI.ajouter("tata");
-    TDI.afficher(std::cout);
-    int testId = TDI.getId("tata");
-    std::cout << "ID de tata : " << testId << std::endl;
-    std::cout << TDI.getNom(0) << std::endl;
+    yyin = NULL;
+
+    if(argc == 2) {
+        yyin = fopen( argv[1], "r" );
+        if (yyin == NULL) {
+                std::cout << argv[1] << " : Impossible d'ouvrir le fichier"<<std::endl;
+                return EXIT_SUCCESS;
+        }
+    }
+    else {
+        std::cout << "Utilisation : ding SOURCE.PAS"<<std::endl<<
+                     "Compile source.pas."<<std::endl;
+        return EXIT_SUCCESS;
+    }
+    
+    yyparse ();
+    
     return EXIT_SUCCESS;
 }

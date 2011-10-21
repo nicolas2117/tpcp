@@ -76,8 +76,8 @@ $(SRC_DIR)%.c : $(SRC_DIR)%.l
 
 $(SRC_DIR)%.c : $(SRC_DIR)%.y
 	mkdir -p $(INC_DIR)
-	$(BISON) -d -o $@ $<
-	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp #Déplacement du nouveau parser.h dans le dossier "include"
+	$(BISON) -o $@ $<
+	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp
 
 #Gestion des dépendances
 $(DEP_DIR)%.d: $(SRC_DIR)%.c

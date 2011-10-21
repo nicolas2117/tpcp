@@ -89,7 +89,7 @@ extern int yylex ();
 %nonassoc KW_ELSE
 
 %%
-	
+
 Program				:	ProgramHeader SEP_SCOL Block SEP_DOT
 				;
 
@@ -169,10 +169,10 @@ FormalArg			:	ValFormalArg
 			 	|	VarFormalArg
 			 	;
 
-ValFormalArg			:	ListIdent SEP_DOTS TOK_IDENT
+ValFormalArg			:	ListIdent SEP_DOTS BaseType
 			 	;
 
-VarFormalArg			:	KW_VAR ListIdent SEP_DOTS TOK_IDENT
+VarFormalArg			:	KW_VAR ListIdent SEP_DOTS BaseType
 			 	;
 
 FuncDecl			:	FuncHeader SEP_SCOL Block
@@ -185,11 +185,10 @@ FuncHeader			:	FuncIdent FuncResult
 FuncIdent			:	KW_FUNC TOK_IDENT
 			 	;
 
-FuncResult			:	SEP_DOTS TOK_IDENT
+FuncResult			:	SEP_DOTS BaseType
 			 	;
 
-Type				:	TOK_IDENT
-			 	|	UserType
+Type				:	UserType
 			 	|	BaseType
 			 	;
 
@@ -200,14 +199,19 @@ UserType			:	EnumType
 			 	|	PointerType
 			 	;
 
-BaseType			:	KW_INTEGER
+BaseType			:	TOK_IDENT
+			 	|	KW_INTEGER
 				|	KW_REAL
 				|	KW_BOOLEAN
 				|	KW_CHAR
 				|	KW_STRING
 				;
 
-EnumType			:	SEP_PO ListIdent SEP_PF
+EnumType			:	SEP_PO ListEnumValue SEP_PF
+			 	;
+
+ListEnumValue			:	ListEnumValue SEP_COMMA TOK_IDENT
+			 	|	TOK_IDENT
 			 	;
 
 InterType			:	InterBase SEP_DOTDOT InterBase
@@ -246,6 +250,7 @@ PointerType			:	OP_PTR Type
 			 	;
 
 BlockCode			:	KW_BEGIN ListInstr KW_END
+				|	KW_BEGIN ListInstr SEP_SCOL KW_END
 				|	KW_BEGIN KW_END
 			 	;
 

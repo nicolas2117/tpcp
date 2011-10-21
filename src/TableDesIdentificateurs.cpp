@@ -31,6 +31,7 @@ int TableDesIdentificateurs::getId(std::string nom)
 
 void TableDesIdentificateurs::afficher(std::ostream &flux)
 {
+	flux << "Table des identificateurs" << std::endl;
     std::map<int, std::string>::const_iterator it; //itérateur sur map
     for(it = _mapId.begin(); it != _mapId.end(); it++)
     {

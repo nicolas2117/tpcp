@@ -1,13 +1,15 @@
 #include <cstdlib>
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <parser.hpp>
+#include <TableDesIdentificateurs.hpp>
 
 extern FILE* yyin;
 extern int yyleng;
 extern char* yytext;
 extern int yylex();
 extern int yyparse();
+extern TableDesIdentificateurs TDI;
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +29,8 @@ int main(int argc, char *argv[])
     }
     
     yyparse ();
+    
+    TDI.afficher(std::cout);
     
     return EXIT_SUCCESS;
 }

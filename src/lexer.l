@@ -21,7 +21,7 @@ extern void commenteof ();
 
 #include <TableDesIdentificateurs.hpp>
 
-TableDesIdentificateurs TDI;
+TableDesIdentificateurs tableDesIdentificateurs;
 
 /*
 	mot-clefs du pascal non geres pour le moment
@@ -122,7 +122,7 @@ CHIFFRES [0-9]+
 
 {T}{R}{U}{E}					column += yyleng; return TOK_BOOLEAN;
 {F}{A}{L}{S}{E}					column += yyleng; return TOK_BOOLEAN;
-[a-zA-Z]([a-zA-Z0-9])*				TDI.ajouter(yytext);column += yyleng; return TOK_IDENT;
+[a-zA-Z]([a-zA-Z0-9])*			tableDesIdentificateurs.ajouter(yytext);column += yyleng; return TOK_IDENT;
 '({NQUOTE}|'')+'					column += yyleng; return TOK_STRING;
 {CHIFFRES}						column += yyleng; return TOK_INTEGER;
 {CHIFFRES}"."{CHIFFRES}			column += yyleng; return TOK_REAL;

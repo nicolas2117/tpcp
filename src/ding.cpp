@@ -9,7 +9,7 @@ extern int yyleng;
 extern char* yytext;
 extern int yylex();
 extern int yyparse();
-extern TableDesIdentificateurs TDI;
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
 int main(int argc, char *argv[])
 {
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     
     yyparse ();
     
-    TDI.afficher(std::cout);
+    tableDesIdentificateurs.afficher(std::cout);
     
     return EXIT_SUCCESS;
 }

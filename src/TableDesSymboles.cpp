@@ -1,3 +1,5 @@
+#include <typeinfo>
+
 #include <TableDesSymboles.hpp>
 
 TableDesSymboles::TableDesSymboles()
@@ -7,12 +9,17 @@ TableDesSymboles::TableDesSymboles()
 
 TableDesSymboles::~TableDesSymboles()
 {
-
+    delete symboles;
 }
 
 void TableDesSymboles::ajouterSymbole(Symbole *symbole)
 {
     symboles->push_back(symbole);
+}
+
+Symbole *getSymbole(int id)
+{
+
 }
 
 void TableDesSymboles::afficher(std::ostream &flux)
@@ -21,7 +28,7 @@ void TableDesSymboles::afficher(std::ostream &flux)
     int size = (int) symboles->size();
     for(i = 0; i < size; i++)
     {
-        flux << "gna" << std::endl;
+        flux << typeid(symboles[i]).name() << std::endl;
     }
     flux << "Hello world !!!" << std::endl;
 }

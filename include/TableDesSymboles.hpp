@@ -1,6 +1,3 @@
-/**
- *
- */
 #ifndef TABLE_DES_SYMBOLES
 #define TABLE_DES_SYMBOLES
 
@@ -9,18 +6,20 @@
 
 #include <Symbole.hpp>
 
+/**
+ *
+ */
 class TableDesSymboles
 {
     private:
         std::vector<Symbole *> *symboles;
+
     public:
-    /**
-     *
-     */
-    TableDesSymboles();
-    ~TableDesSymboles();
-    void ajouterSymbole(Symbole *symbole);
-    void afficher(std::ostream &flux);
+        TableDesSymboles();
+        ~TableDesSymboles();
+        void ajouterSymbole(Symbole *symbole);
+        Symbole *getSymbole(int id);
+        void afficher(std::ostream &flux);
 };
 
 #endif

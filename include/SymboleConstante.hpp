@@ -5,7 +5,9 @@
 
 class SymboleConstante : public Symbole
 {
-	
+    private:
+        Type *type;
+
 };
 
 #endif

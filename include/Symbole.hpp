@@ -1,19 +1,18 @@
 #ifndef SYMBOLE
 #define SYMBOLE
 
-#include <Type.hpp>
+#include <string>
 
 class Symbole
 {
 	private:
         int id;
-        Type *type;
+        std::string categorie;
 
 	public:
-        Symbole();
-        ~Symbole();
+        Symbole(int id, std::string categorie);
         int getId();
-
+        std::string &getCategorie();
 };
 
 #endif

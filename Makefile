@@ -62,11 +62,11 @@ $(BIN_DIR)/$(BIN): $(OBJS)
 	$(LD) $+ -o $@ $(LDFLAGS)
         
 #To Objets
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)parser.hpp
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 	
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(INC_DIR)parser.hpp
 	mkdir -p $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) -o $@ -c $<
 
@@ -77,6 +77,8 @@ $(SRC_DIR)%.c : $(SRC_DIR)%.l
 $(SRC_DIR)%.c : $(SRC_DIR)%.y
 	mkdir -p $(INC_DIR)
 	$(BISON) -d -o $@ $<
+
+$(INC_DIR)parser.hpp:$(SRC_DIR)parser.c
 	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp
 
 #Gestion des dépendances

@@ -23,8 +23,7 @@ typedef enum {
 } Categorie;
 
 /**
- * @class Symbole
- * @brief Classe symbole.
+ * @brief Classe Symbole.
  */
 class Symbole
 {

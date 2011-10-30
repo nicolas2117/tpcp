@@ -1,7 +1,6 @@
-#include <iostream>
 #include <Symbole.hpp>
 
-Symbole::Symbole(int id, std::string categorie)
+Symbole::Symbole(int id, Categorie categorie)
 {
 	this->id = id;
 	this->categorie = categorie;
@@ -12,7 +11,7 @@ int Symbole::getId()
     return id;
 }
 
-std::string &Symbole::getCategorie()
+Categorie Symbole::getCategorie()
 {
     return categorie;
 }

@@ -11,7 +11,7 @@
 #include <Type.hpp>
 
 /**
- * @brief Classe symbole.
+ * @brief Classe symboleVariable.
  */
 class SymboleVariable : public Symbole
 {

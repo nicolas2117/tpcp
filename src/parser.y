@@ -1,8 +1,9 @@
 %{
 #include <cstddef>
 #include <string>
-
+#include <queue>
 #include <TableDesSymboles.hpp>
+#include <iostream>
 
 extern int yyerror ( char* );
 extern int yylex ();
@@ -10,14 +11,16 @@ extern int yylex ();
 TableDesSymboles tableDesSymbolesDuProgramme;
 TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 
+std::queue<int> fileId; // File d'identifiant
+
 %}
 
 %union{
-    std::string* valeurString;	
     int id;
 	int valeurInteger;
     double valeurReal;
     bool valeurBoolean;
+    std::string* valeurString;
 }
 
 %token KW_PROGRAM
@@ -78,11 +81,11 @@ TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 %token OP_PTR
 %token OP_AFFECT
 
-%token TOK_IDENT
-%token TOK_INTEGER
-%token TOK_REAL
-%token TOK_BOOLEAN
-%token TOK_STRING
+%token <id> TOK_IDENT
+%token <valeurInteger> TOK_INTEGER
+%token <valeurReal> TOK_REAL
+%token <valeurBoolean> TOK_BOOLEAN
+%token <valeurString> TOK_STRING
 
 %start Program
 
@@ -100,10 +103,10 @@ TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 
 %%
 
-Program				:	ProgramHeader SEP_SCOL Block SEP_DOT
+Program	        :   ProgramHeader SEP_SCOL Block SEP_DOT
 				;
 
-ProgramHeader			:	KW_PROGRAM TOK_IDENT
+ProgramHeader   :   KW_PROGRAM TOK_IDENT
 				;
 
 Block				:	BlockDeclConst BlockDeclType BlockDeclVar BlockDeclFunc BlockCode
@@ -139,11 +142,11 @@ ListDeclVar			:	ListDeclVar DeclVar
 			 	|	DeclVar
 			 	;
 
-DeclVar				:	ListIdent SEP_DOTS Type SEP_SCOL
+DeclVar				:	ListIdent SEP_DOTS Type SEP_SCOL { while(!fileId.empty()){ std::cout << fileId.front() << std::endl; fileId.pop();} }
 			 	;
 
-ListIdent			:	ListIdent SEP_COMMA TOK_IDENT
-			 	|	TOK_IDENT
+ListIdent			:	ListIdent SEP_COMMA TOK_IDENT { fileId.push($3); }
+			 	|	TOK_IDENT { fileId.push($1); }
 			 	;
 
 BlockDeclFunc			:	ListDeclFunc SEP_SCOL
@@ -209,7 +212,7 @@ UserType			:	EnumType
 			 	|	PointerType
 			 	;
 
-BaseType			:	TOK_IDENT
+BaseType	    :   TOK_IDENT
 			 	|	KW_INTEGER
 				|	KW_REAL
 				|	KW_BOOLEAN

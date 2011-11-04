@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <cmath>
 #include <string>
+#include <vector>
 #include "parser.hpp"
 
 extern int row, column;

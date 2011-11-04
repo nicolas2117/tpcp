@@ -1,9 +1,10 @@
 #ifndef TYPE
 #define TYPE
 
-class Type
-{
-    
+class Type {
+
+    public:
+    virtual bool operator== (Type& type)=0;
 };
 
 #endif

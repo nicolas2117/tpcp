@@ -1,6 +1,7 @@
 %{
 
 #include <cstddef>
+#include <string>
 
 extern int yyerror ( char* );
 extern int yylex ();
@@ -8,6 +9,11 @@ extern int yylex ();
 %}
 
 %union{
+	int valeurInteger;
+    double valeurReal;
+    bool valeurBoolean;
+    char valeurChar;
+    std::string valeurString;	
 }
 
 %token KW_PROGRAM

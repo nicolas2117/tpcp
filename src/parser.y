@@ -1,19 +1,24 @@
 %{
-
 #include <cstddef>
 #include <string>
+
+#include <TableDesSymboles.hpp>
 
 extern int yyerror ( char* );
 extern int yylex ();
 
+TableDesSymboles tableDesSymbolesDuProgramme;
+TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
+
 %}
 
 %union{
+    std::string* valeurString;	
+    int id;
 	int valeurInteger;
     double valeurReal;
     bool valeurBoolean;
     char valeurChar;
-    std::string valeurString;	
 }
 
 %token KW_PROGRAM

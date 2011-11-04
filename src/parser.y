@@ -18,7 +18,6 @@ TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 	int valeurInteger;
     double valeurReal;
     bool valeurBoolean;
-    char valeurChar;
 }
 
 %token KW_PROGRAM

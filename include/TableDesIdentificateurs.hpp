@@ -1,33 +1,62 @@
 #ifndef TABLE_DES_IDENTIFICATEURS
 #define TABLE_DES_IDENTIFICATEURS
 
+/**
+ * @file TableDesIdentificateurs.hpp
+ * @brief Fichier qui contient la définition de la classe TableDesIdentificateurs.
+ * @author Claude MAKOSSO-MAKOSSO
+ */
+
 #include <map>
 #include <string>
+
+/**
+ * @brief Classe TableDesIdentificateurs.
+ */
 
 class TableDesIdentificateurs
 {
 public:
-    //initialise la table des identificateurs
+    /**
+     * @brief Constructeur.
+     */
     TableDesIdentificateurs();
     
-    //vide la table des identificateurs
+    /**
+     * @brief Destructeur.
+     */
     ~TableDesIdentificateurs();
       
-    //enregistre un identificateur et renvoie son numéro dans la table
+    /**
+     * @brief Enregistre un identificateur
+     * @param str L'identificateur.
+     * @return L'id de l'identificateur dans la table
+     */
     int ajouter(const char *str);
     
-    //affiche la table des identificateurs
+    /**
+     * @brief Affiche la table des identificateurs.
+     * @param flux Le flux sur lequel afficher la table.
+     */
     void afficher(std::ostream &flux);
     
-    //retourne l'identificateur à partir de son numéro
+    /**
+     * @brief Retourne l'identificateur à partir de son numéro.
+     * @param id L'id de l'identificateur que l'on veut récupérer.
+     * @return L'identificateur.
+     */
     const std::string& getNom (int id);
     
-    //retourne le numéro de l'identificateur
+    /**
+     * @brief Retourne l'id de l'identificateur.
+     * @param nom L'identificateur dont on veut récupérer l'id.
+     * @return L'id.
+     */
     int getId (std::string nom);
     
 private:
     //map
-    std::map<int, std::string> _mapId;	
+    std::map<int, std::string> _mapId; /**< Liste des identificateurs. */
 };
 
 #endif

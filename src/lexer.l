@@ -8,7 +8,8 @@
  
 #include <cstdio>
 #include <cmath>
-
+#include <string>
+#include <vector>
 #include "parser.hpp"
 
 extern int row, column;
@@ -120,18 +121,18 @@ CHIFFRES [0-9]+
 "**"								column += yyleng; return OP_EXP;
 "^"								column += yyleng; return OP_PTR;
 
-{T}{R}{U}{E}					column += yyleng; return TOK_BOOLEAN;
-{F}{A}{L}{S}{E}					column += yyleng; return TOK_BOOLEAN;
-[a-zA-Z]([a-zA-Z0-9])*			tableDesIdentificateurs.ajouter(yytext);column += yyleng; return TOK_IDENT;
-'({NQUOTE}|'')+'					column += yyleng; return TOK_STRING;
-{CHIFFRES}						column += yyleng; return TOK_INTEGER;
-{CHIFFRES}"."{CHIFFRES}			column += yyleng; return TOK_REAL;
+{T}{R}{U}{E}					yylval.valeurBoolean = true; column += yyleng; return TOK_BOOLEAN;
+{F}{A}{L}{S}{E}					yylval.valeurBoolean = false; column += yyleng; return TOK_BOOLEAN;
+[a-zA-Z]([a-zA-Z0-9])*			yylval.id = tableDesIdentificateurs.ajouter(yytext);column += yyleng; return TOK_IDENT;
+'({NQUOTE}|'')+'			    yylval.valeurString = new std::string(yytext); column += yyleng; return TOK_STRING;
+{CHIFFRES}						yylval.valeurInteger = atoi(yytext) ;column += yyleng; return TOK_INTEGER;
+{CHIFFRES}"."{CHIFFRES}			yylval.valeurReal = atof(yytext) ;column += yyleng; return TOK_REAL;
 
 ":"								column += yyleng; return SEP_DOTS;
 ";"								column += yyleng; return SEP_SCOL;
 ","								column += yyleng; return SEP_COMMA;
 "."								column += yyleng; return SEP_DOT;
-".."								column += yyleng; return SEP_DOTDOT;
+".."						    column += yyleng; return SEP_DOTDOT;
 "["								column += yyleng; return SEP_CO;
 "]"								column += yyleng; return SEP_CF;
 "("								column += yyleng; return SEP_PO;

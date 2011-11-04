@@ -3,6 +3,7 @@
 #include <iostream>
 #include <parser.hpp>
 #include <TableDesIdentificateurs.hpp>
+#include <TableDesSymboles.hpp>
 
 extern FILE* yyin;
 extern int yyleng;
@@ -10,6 +11,7 @@ extern char* yytext;
 extern int yylex();
 extern int yyparse();
 extern TableDesIdentificateurs tableDesIdentificateurs;
+extern TableDesSymboles tableDesSymbolesDuProgramme;
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +33,6 @@ int main(int argc, char *argv[])
     yyparse ();
     
     tableDesIdentificateurs.afficher(std::cout);
-    
+    tableDesSymbolesDuProgramme.afficher(std::cout);
     return EXIT_SUCCESS;
 }

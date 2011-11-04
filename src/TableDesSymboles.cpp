@@ -1,8 +1,15 @@
+#include <cstdlib>
+#include <iostream>
 #include <TableDesSymboles.hpp>
 
 TableDesSymboles::TableDesSymboles()
 {
-    symboles = new std::vector<Symbole *>();
+    this->parent = NULL;
+}
+
+TableDesSymboles::TableDesSymboles(const TableDesSymboles *parent)
+{
+    this->parent = parent;
 }
 
 TableDesSymboles::~TableDesSymboles()
@@ -12,16 +19,25 @@ TableDesSymboles::~TableDesSymboles()
 
 void TableDesSymboles::ajouterSymbole(Symbole *symbole)
 {
-    symboles->push_back(symbole);
+    symboles.push_back(symbole);
+}
+
+const Symbole *TableDesSymboles::getSymbole(int id)
+{
+    unsigned int i;
+    for(i = 0; i < symboles.size(); i++)
+    {
+        if(symboles[i]->getId() == id)
+            return symboles[i];
+    }
+    return NULL;
 }
 
 void TableDesSymboles::afficher(std::ostream &flux)
 {
-    int i;
-    int size = (int) symboles->size();
-    for(i = 0; i < size; i++)
+    unsigned int i;
+    for(i = 0; i < symboles.size(); i++)
     {
-        flux << "gna" << std::endl;
+        std::cout << symboles[i]->getId() <<  " " << symboles[i]->getCategorie() << std::endl;
     }
-    flux << "Hello world !!!" << std::endl;
 }

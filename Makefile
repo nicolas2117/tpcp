@@ -55,6 +55,8 @@ OBJS    = $(SRCS_CPP:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o) $(SRCS_C:$(SRC_DIR)%.c=$(OBJ
 
 #Rules
 all: $(BIN_DIR)/$(BIN)
+	@echo Terminé, suppression des fichiers intermédiaires de flex et bison
+	rm $(SRCS_Y:$(SRC_DIR)%.y=$(SRC_DIR)%.c) $(SRCS_L:$(SRC_DIR)%.l=$(SRC_DIR)%.c)
 
 #To executable
 $(BIN_DIR)/$(BIN): $(OBJS)
@@ -62,11 +64,11 @@ $(BIN_DIR)/$(BIN): $(OBJS)
 	$(LD) $+ -o $@ $(LDFLAGS)
         
 #To Objets
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)parser.hpp
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 	
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(INC_DIR)parser.hpp
 	mkdir -p $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) -o $@ -c $<
 
@@ -77,6 +79,8 @@ $(SRC_DIR)%.c : $(SRC_DIR)%.l
 $(SRC_DIR)%.c : $(SRC_DIR)%.y
 	mkdir -p $(INC_DIR)
 	$(BISON) -d -o $@ $<
+
+$(INC_DIR)parser.hpp:$(SRC_DIR)parser.c
 	mv -v $(SRC_DIR)parser.h $(INC_DIR)parser.hpp
 
 #Gestion des dépendances
@@ -119,9 +123,13 @@ valgrind: $(BIN_DIR)/$(BIN)
 
 clean:
 	rm -f $(OBJ_DIR)*.o $(SRC_DIR)*~ $(DEP_DIR)*.d *~ $(BIN_DIR)/$(BIN)
+	rm $(SRCS_Y:$(SRC_DIR)%.y=$(SRC_DIR)%.c) $(SRCS_L:$(SRC_DIR)%.l=$(SRC_DIR)%.c)
 
 distclean: clean
 	rm -f $(BIN_DIR)/$(BIN)
 
 tar: clean
 	tar -cvzf ../${shell basename `pwd`}.tgz ../${shell basename `pwd`}
+
+#Ne pas supprimer automatiquement les fichiers intermédiaires de bison, on le fait nous même
+.PRECIOUS: $(SRCS_Y:$(SRC_DIR)%.y=$(SRC_DIR)%.c) $(SRCS_L:$(SRC_DIR)%.l=$(SRC_DIR)%.c)

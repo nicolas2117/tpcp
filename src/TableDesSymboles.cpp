@@ -30,7 +30,14 @@ const Symbole *TableDesSymboles::getSymbole(int id)
         if(symboles[i]->getId() == id)
             return symboles[i];
     }
-    return NULL;
+	if (parent == NULL) 
+	{
+		return NULL;
+	}
+	else
+	{
+		return parent->getSymbole(id);
+	}
 }
 
 void TableDesSymboles::afficher(std::ostream &flux)

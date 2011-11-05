@@ -3,6 +3,7 @@
 #include <string>
 #include <queue>
 #include <TableDesSymboles.hpp>
+#include <SymboleProgramme.hpp>
 #include <iostream>
 
 extern int yyerror ( char* );
@@ -106,7 +107,7 @@ std::queue<int> fileId; // File d'identifiant
 Program	        :   ProgramHeader SEP_SCOL Block SEP_DOT
 				;
 
-ProgramHeader   :   KW_PROGRAM TOK_IDENT
+ProgramHeader   :   KW_PROGRAM TOK_IDENT { tableDesSymbolesDuProgramme.ajouterSymbole(new SymboleProgramme($2)); }
 				;
 
 Block				:	BlockDeclConst BlockDeclType BlockDeclVar BlockDeclFunc BlockCode

@@ -22,7 +22,7 @@ void TableDesSymboles::ajouterSymbole(Symbole *symbole)
     symboles.push_back(symbole);
 }
 
-const Symbole *TableDesSymboles::getSymbole(int id)
+const Symbole *TableDesSymboles::getSymbole(int id) const
 {
     unsigned int i;
     for(i = 0; i < symboles.size(); i++)

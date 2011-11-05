@@ -49,7 +49,7 @@ class TableDesSymboles
          * @param id L'id du symbole que l'on veut récupèrer.
          * @return Un pointeur vers un symbole.
          */
-        const Symbole *getSymbole(int id);
+        const Symbole *getSymbole(int id) const;
 
         /**
          * @brief Affiche la table des symboles.

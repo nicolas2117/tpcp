@@ -1,8 +1,9 @@
 #include <SymboleProcedure.hpp>
 
-SymboleProcedure::SymboleProcedure(int id, const TableDesSymboles *parent): Symbole(id, CATEGORIE_PROCEDURE)
+SymboleProcedure::SymboleProcedure(int id, const TableDesSymboles *parent, int arite): Symbole(id, CATEGORIE_PROCEDURE)
 {
     tablesDesSymbolesProcedure = new TableDesSymboles(parent);
+	this->arite = arite;
 }
 
 SymboleProcedure::~SymboleProcedure()
@@ -10,3 +11,7 @@ SymboleProcedure::~SymboleProcedure()
     delete tablesDesSymbolesProcedure;
 }
 
+int SymboleProcedure::getArite()
+{
+    return arite;
+}

@@ -19,6 +19,7 @@ class SymboleFonction : public Symbole
     private:
         TableDesSymboles *tablesDesSymbolesFonction; /**< Table des symboles de la fonction. */
         Type *typeDeRetour; /**< Type de retour de la fonction. */
+		int arite; /**< Arité de la fonction. */
 
     public:
             /**
@@ -26,13 +27,20 @@ class SymboleFonction : public Symbole
          * @param id id du symbole.
          * @param typeDeRetour Type de retour de la fonction.
          * @param parent La table des symboles parent.
+		 * @param arite L'arité de la fonction.
          */
-        SymboleFonction(int id, Type *typeDeRetour, const TableDesSymboles *parent);
+        SymboleFonction(int id, Type *typeDeRetour, const TableDesSymboles *parent, int arite);
 
         /**
          * @brief destructeur.
          */
         ~SymboleFonction();
+		
+		/**
+		 * @brief Retourne l'arité de la fonction.
+		 * @return L'arité de la fonction.
+         */
+		int getArite();
 };
 
 #endif

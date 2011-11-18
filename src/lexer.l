@@ -10,7 +10,9 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <Type.hpp>
 #include "parser.hpp"
+
 
 extern int row, column;
 
@@ -179,7 +181,7 @@ int
 yyerror ( char* m )
 {
 	fprintf ( stderr, "Erreur (%d,%d) [%s] : %s\n", row, column, yytext, m );
-	return 1;
+	exit (1);
 }
 
 void

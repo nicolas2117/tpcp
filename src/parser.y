@@ -4,7 +4,10 @@
 #include <queue>
 #include <TableDesSymboles.hpp>
 #include <SymboleProgramme.hpp>
+#include <SymboleVariable.hpp>
 #include <iostream>
+#include <Type.hpp>
+#include <GenerateurType.hpp>
 
 extern int yyerror ( char* );
 extern int yylex ();
@@ -22,6 +25,7 @@ std::queue<int> fileId; // File d'identifiant
     double valeurReal;
     bool valeurBoolean;
     std::string* valeurString;
+    Type *type;
 }
 
 %token KW_PROGRAM
@@ -52,11 +56,11 @@ std::queue<int> fileId; // File d'identifiant
 %token KW_PROC
 %token KW_FUNC
 %token KW_NIL
-%token KW_INTEGER
-%token KW_REAL
-%token KW_BOOLEAN
-%token KW_CHAR
-%token KW_STRING
+%token <type> KW_INTEGER
+%token <type> KW_REAL
+%token <type> KW_BOOLEAN
+%token <type> KW_CHAR
+%token <type> KW_STRING
 
 %token SEP_SCOL
 %token SEP_DOT
@@ -88,6 +92,8 @@ std::queue<int> fileId; // File d'identifiant
 %token <valeurBoolean> TOK_BOOLEAN
 %token <valeurString> TOK_STRING
 
+%type <type> Type UserType BaseType
+
 %start Program
 
 %nonassoc OP_EQ OP_NEQ OP_GT OP_LT OP_GTE OP_LTE
@@ -107,47 +113,63 @@ std::queue<int> fileId; // File d'identifiant
 Program	        :   ProgramHeader SEP_SCOL Block SEP_DOT
 				;
 
-ProgramHeader   :   KW_PROGRAM TOK_IDENT { tableDesSymbolesDuProgramme.ajouterSymbole(new SymboleProgramme($2)); }
+ProgramHeader   :   KW_PROGRAM TOK_IDENT 
+                    { 
+                        tableDesSymbolesDuProgramme.ajouterSymbole(new SymboleProgramme($2)); 
+                    }
 				;
 
-Block				:	BlockDeclConst BlockDeclType BlockDeclVar BlockDeclFunc BlockCode
+Block			:	BlockDeclConst BlockDeclType BlockDeclVar BlockDeclFunc BlockCode
 				;
 
-BlockDeclConst			:	KW_CONST ListDeclConst
+BlockDeclConst	:	KW_CONST ListDeclConst
 			 	|
 			 	;
 
-ListDeclConst			:	ListDeclConst DeclConst
+ListDeclConst	:	ListDeclConst DeclConst
 			 	|	DeclConst
 			 	;
 
-DeclConst			:	TOK_IDENT OP_EQ Expression SEP_SCOL
+DeclConst		:	TOK_IDENT OP_EQ Expression SEP_SCOL
 			 	;
 
-BlockDeclType			:	KW_TYPE ListDeclType
+BlockDeclType	:	KW_TYPE ListDeclType
 			 	|
 			 	;
 
-ListDeclType			:	ListDeclType DeclType
+ListDeclType	:	ListDeclType DeclType
 			 	|	DeclType
 			 	;
 
-DeclType			:	TOK_IDENT OP_EQ Type SEP_SCOL
+DeclType		:	TOK_IDENT OP_EQ Type SEP_SCOL
 			 	;
 
-BlockDeclVar			:	KW_VAR ListDeclVar
+BlockDeclVar	:	KW_VAR ListDeclVar
 			 	|
 			 	;
 
-ListDeclVar			:	ListDeclVar DeclVar
+ListDeclVar		:	ListDeclVar DeclVar
 			 	|	DeclVar
 			 	;
 
-DeclVar				:	ListIdent SEP_DOTS Type SEP_SCOL { while(!fileId.empty()){ std::cout << fileId.front() << std::endl; fileId.pop();} }
+DeclVar			:	ListIdent SEP_DOTS Type SEP_SCOL 
+                    { 
+                        while(!fileId.empty())
+                            { 
+                                tableDesSymbolesCourante->ajouterSymbole(new SymboleVariable(fileId.front(), $3));                      
+                                fileId.pop();
+                            } 
+                    }
 			 	;
 
-ListIdent			:	ListIdent SEP_COMMA TOK_IDENT { fileId.push($3); }
-			 	|	TOK_IDENT { fileId.push($1); }
+ListIdent		:	ListIdent SEP_COMMA TOK_IDENT 
+                    { 
+                        fileId.push($3); 
+                    }
+			 	|	TOK_IDENT 
+                    { 
+                        fileId.push($1); 
+                    }
 			 	;
 
 BlockDeclFunc			:	ListDeclFunc SEP_SCOL
@@ -202,23 +224,23 @@ FuncIdent			:	KW_FUNC TOK_IDENT
 FuncResult			:	SEP_DOTS BaseType
 			 	;
 
-Type				:	UserType
-			 	|	BaseType
+Type			:	UserType {$$ = $1}
+			 	|	BaseType {$$ = $1}
 			 	;
 
-UserType			:	EnumType
-			 	|	InterType
-			 	|	ArrayType
-			 	|	RecordType
-			 	|	PointerType
+UserType		:	EnumType {$$ = 0}
+			 	|	InterType {$$ = 0}
+			 	|	ArrayType {$$ = 0}
+			 	|	RecordType {$$ = 0}
+			 	|	PointerType {$$ = 0}
 			 	;
 
-BaseType	    :   TOK_IDENT
-			 	|	KW_INTEGER
-				|	KW_REAL
-				|	KW_BOOLEAN
-				|	KW_CHAR
-				|	KW_STRING
+BaseType	    :   TOK_IDENT {$$ = 0}
+			 	|	KW_INTEGER {$$ = GenerateurType::creerTypeEntier();}
+				|	KW_REAL {$$ = GenerateurType::creerTypeReel();}
+				|	KW_BOOLEAN {$$ = GenerateurType::creerTypeBool();}
+				|	KW_CHAR {$$ = GenerateurType::creerTypeCaractere();}
+				|	KW_STRING {$$ = 0}
 				;
 
 EnumType			:	SEP_PO ListEnumValue SEP_PF

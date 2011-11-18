@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
+#include <Type.hpp>
 #include <parser.hpp>
 #include <TableDesIdentificateurs.hpp>
 #include <TableDesSymboles.hpp>

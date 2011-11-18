@@ -4,6 +4,7 @@
 #include <TypeBool.hpp>
 #include <TypeTableau.hpp>
 #include <TypeInterval.hpp>
+#include <GenerateurType.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -54,6 +55,26 @@ int main(int argc, char *argv[])
     std::cout << "Comparaison d'un interval avec un tableau" << std::endl;
     std::cout << (int) (TI1 == TT1) << std::endl;
 
+
+    //test Generateur Type
+    GenerateurType Gen;
+    TypeEntier* tEntier;
+    TypeEntier* tEntier2;
+    tEntier = (TypeEntier*)Gen.creerTypeEntier();
+    tEntier2 = (TypeEntier*)Gen.creerTypeEntier();
+    std::cout << "Comparaison de deux entier Généré par le generateur" << std::endl;
+    std::cout << (int) (*tEntier == *tEntier2) << std::endl;
+    std::cout << "Comparaison d'un TypeEntier et d'un autre Généré par le generateur" << std::endl;
+    std::cout << (int) (*tEntier == TE1) << std::endl;
+    std::cout << "Comparaison d'un TypeBoolean et d'un typeEntier Généré par le generateur" << std::endl;
+    std::cout << (int) (*tEntier == TB1) << std::endl;
+
+    TypeBool* tB;
+    TypeBool* tB2;
+    tB = (TypeBool*)Gen.creerTypeBool();
+    tB2 = (TypeBool*)Gen.creerTypeBool();
+    std::cout << "Comparaison de deux Booléan Généré par le generateur" << std::endl;
+    std::cout << (int) (*tB == *tB2) << std::endl;
 
 
 

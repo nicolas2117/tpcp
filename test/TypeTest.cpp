@@ -42,6 +42,11 @@ int main(int argc, char *argv[])
     TypeTableau TT7(&TT3);
     std::cout << "Comparaison entre deux tableau de tableau d'entier et de tableau de reel" << std::endl;
     std::cout << (int) (TT5 == TT7) << std::endl;
+    TypeTableau TT8,TT9;
+    std::cout << "Comparaison entre deux tableau sans type" << std::endl;
+    std::cout << (int) (TT8 == TT9) << std::endl;
+    std::cout << "Comparaison entre un tableau sans type et un tableau d'entier" << std::endl;
+    std::cout << (int) (TT8 == TT2) << std::endl;
 
 
     //test Interval
@@ -75,6 +80,27 @@ int main(int argc, char *argv[])
     tB2 = (TypeBool*)Gen.creerTypeBool();
     std::cout << "Comparaison de deux Booléan Généré par le generateur" << std::endl;
     std::cout << (int) (*tB == *tB2) << std::endl;
+
+    TypeReel* tR;
+    TypeReel* tR2;
+    tR = (TypeReel*)Gen.creerTypeReel();
+    tR2 = (TypeReel*)Gen.creerTypeReel();
+    std::cout << "Comparaison de deux Reel Généré par le generateur" << std::endl;
+    std::cout << (int) (*tR == *tR2) << std::endl;
+
+    TypeTableau* tT;
+    TypeTableau* tT2;
+    tT = (TypeTableau*)Gen.creerTypeTableau();
+    tT2 = (TypeTableau*)Gen.creerTypeTableau();
+    std::cout << "Comparaison de deux Tableau Généré par le generateur" << std::endl;
+    std::cout << (int) (*tT == *tT2) << std::endl;
+
+    TypeInterval* tI;
+    TypeInterval* tI2;
+    tI = (TypeInterval*)Gen.creerTypeInterval();
+    tI2 = (TypeInterval*)Gen.creerTypeInterval();
+    std::cout << "Comparaison de deux Interval Généré par le generateur" << std::endl;
+    std::cout << (int) (*tI == *tI2) << std::endl;
 
 
 

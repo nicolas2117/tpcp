@@ -1,10 +1,11 @@
 #include <TypeTableau.hpp>
 #include <typeinfo>
 #include <iostream>
+#include <cstddef>
 
 
 TypeTableau::TypeTableau(){//initialise un tableau de type indefini
-    this->t=0;
+    this->t=NULL;
 }
 
 TypeTableau::TypeTableau(Type * tDuTab){
@@ -18,7 +19,13 @@ TypeTableau::TypeTableau(TypeTableau * tT){
 bool TypeTableau::operator== (Type & type){
     if(typeid(*this) == typeid(type))//si c'est un tableau
     {
-        //if(*(this->t)==*(Tab.t))
+        if(this->t==NULL&&(dynamic_cast<TypeTableau&>(type)).t==NULL){
+            return true;
+        }else{
+            if((this->t==NULL&&(dynamic_cast<TypeTableau&>(type)).t!=NULL)||(this->t!=NULL&&(dynamic_cast<TypeTableau&>(type)).t==NULL)){
+                return false;
+            }
+        }
         if((*(this->t))==(*((dynamic_cast<TypeTableau&>(type)).t)))
         {
                 std::cout << "Les deux tableaux sont du meme type" << std::endl;

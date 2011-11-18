@@ -172,56 +172,56 @@ ListIdent		:	ListIdent SEP_COMMA TOK_IDENT
                     }
 			 	;
 
-BlockDeclFunc			:	ListDeclFunc SEP_SCOL
+BlockDeclFunc	:	ListDeclFunc SEP_SCOL
 			 	|
 			 	;
 
-ListDeclFunc			:	ListDeclFunc SEP_SCOL DeclFunc
+ListDeclFunc	:	ListDeclFunc SEP_SCOL DeclFunc
 			 	|	DeclFunc
 			 	;
 
-DeclFunc			:	ProcDecl
+DeclFunc		:	ProcDecl
 			 	|	FuncDecl
 			 	;
 
-ProcDecl			:	ProcHeader SEP_SCOL Block
+ProcDecl		:	ProcHeader SEP_SCOL Block
 			 	;
 
-ProcHeader			:	ProcIdent
+ProcHeader		:	ProcIdent
 			 	|	ProcIdent FormalArgs
 			 	;
 
-ProcIdent			:	KW_PROC TOK_IDENT
+ProcIdent		:	KW_PROC TOK_IDENT
 			 	;
 
-FormalArgs			:	SEP_PO ListFormalArgs SEP_PF
+FormalArgs		:	SEP_PO ListFormalArgs SEP_PF
 			 	;
 
-ListFormalArgs			:	ListFormalArgs SEP_SCOL FormalArg
+ListFormalArgs	:	ListFormalArgs SEP_SCOL FormalArg
 			 	|	FormalArg
 			 	;
 
-FormalArg			:	ValFormalArg
+FormalArg		:	ValFormalArg
 			 	|	VarFormalArg
 			 	;
 
-ValFormalArg			:	ListIdent SEP_DOTS BaseType
+ValFormalArg	:	ListIdent SEP_DOTS BaseType
 			 	;
 
-VarFormalArg			:	KW_VAR ListIdent SEP_DOTS BaseType
+VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
 			 	;
 
-FuncDecl			:	FuncHeader SEP_SCOL Block
+FuncDecl		:	FuncHeader SEP_SCOL Block
 			 	;
 
-FuncHeader			:	FuncIdent FuncResult
+FuncHeader		:	FuncIdent FuncResult
 			 	|	FuncIdent FormalArgs FuncResult
 			 	;
 
-FuncIdent			:	KW_FUNC TOK_IDENT
+FuncIdent		:	KW_FUNC TOK_IDENT
 			 	;
 
-FuncResult			:	SEP_DOTS BaseType
+FuncResult		:	SEP_DOTS BaseType
 			 	;
 
 Type			:	UserType {$$ = $1}
@@ -243,58 +243,58 @@ BaseType	    :   TOK_IDENT {$$ = 0}
 				|	KW_STRING {$$ = 0}
 				;
 
-EnumType			:	SEP_PO ListEnumValue SEP_PF
+EnumType		:	SEP_PO ListEnumValue SEP_PF
 			 	;
 
-ListEnumValue			:	ListEnumValue SEP_COMMA TOK_IDENT
+ListEnumValue	:	ListEnumValue SEP_COMMA TOK_IDENT
 			 	|	TOK_IDENT
 			 	;
 
-InterType			:	InterBase SEP_DOTDOT InterBase
+InterType		:	InterBase SEP_DOTDOT InterBase
 			 	;
 
-InterBase			:	NSInterBase
+InterBase		:	NSInterBase
 			 	|	OP_SUB NSInterBase
 			 	;
 
-NSInterBase			:	TOK_IDENT
+NSInterBase		:	TOK_IDENT
 			 	|	TOK_INTEGER
 			 	;
 
-ArrayType			:	KW_ARRAY SEP_CO ListArrayIndex SEP_CF KW_OF Type
+ArrayType		:	KW_ARRAY SEP_CO ListArrayIndex SEP_CF KW_OF Type
 			 	;
 
-ListArrayIndex			:	ListArrayIndex SEP_COMMA ArrayIndex
+ListArrayIndex	:	ListArrayIndex SEP_COMMA ArrayIndex
 				|	ArrayIndex
 				;
 
-ArrayIndex			:	TOK_IDENT
+ArrayIndex		:	TOK_IDENT
 			 	|	InterType
 			 	;
 
-RecordType			:	KW_RECORD RecordFields KW_END
+RecordType		:	KW_RECORD RecordFields KW_END
 			 	;
 
-RecordFields			:	RecordFields SEP_SCOL RecordField
+RecordFields	:	RecordFields SEP_SCOL RecordField
 			 	|	RecordField
 			 	;
 
-RecordField			:	ListIdent SEP_DOTS Type
+RecordField		:	ListIdent SEP_DOTS Type
 			 	;
 
-PointerType			:	OP_PTR Type
+PointerType		:	OP_PTR Type
 			 	;
 
-BlockCode			:	KW_BEGIN ListInstr KW_END
+BlockCode		:	KW_BEGIN ListInstr KW_END
 				|	KW_BEGIN ListInstr SEP_SCOL KW_END
 				|	KW_BEGIN KW_END
 			 	;
 
-ListInstr			:	ListInstr SEP_SCOL Instr
+ListInstr		:	ListInstr SEP_SCOL Instr
 			 	|	Instr
 			 	;
 
-Instr				:	KW_WHILE Expression KW_DO Instr
+Instr			:	KW_WHILE Expression KW_DO Instr
 			 	|	KW_REPEAT ListInstr KW_UNTIL Expression
 			 	|	KW_FOR TOK_IDENT OP_AFFECT Expression ForDirection Expression KW_DO Instr
 			 	|	KW_IF Expression KW_THEN Instr %prec KW_IFX
@@ -304,11 +304,11 @@ Instr				:	KW_WHILE Expression KW_DO Instr
 			 	|	BlockCode
 			 	;
 
-ForDirection			:	KW_TO
+ForDirection	:	KW_TO
 			 	|	KW_DOWNTO
 			 	;
 
-Expression			:	MathExpr
+Expression		:	MathExpr
 			 	|	CompExpr
 			 	|	BoolExpr
 			 	|	AtomExpr
@@ -316,7 +316,7 @@ Expression			:	MathExpr
 				|	Call
 			 	;
 
-MathExpr			:	Expression OP_ADD Expression
+MathExpr		:	Expression OP_ADD Expression
 			 	|	Expression OP_SUB Expression
 			 	|	Expression OP_MUL Expression
 			 	|	Expression OP_SLASH Expression
@@ -327,7 +327,7 @@ MathExpr			:	Expression OP_ADD Expression
 			 	|	OP_ADD Expression %prec OP_POS
 			 	;
 
-CompExpr			:	Expression OP_EQ Expression
+CompExpr		:	Expression OP_EQ Expression
 			 	|	Expression OP_NEQ Expression
 			 	|	Expression OP_LT Expression
 			 	|	Expression OP_LTE Expression
@@ -335,13 +335,13 @@ CompExpr			:	Expression OP_EQ Expression
 			 	|	Expression OP_GTE Expression
 			 	;
 
-BoolExpr			:	Expression KW_AND Expression
+BoolExpr		:	Expression KW_AND Expression
 			 	|	Expression KW_OR Expression
 			 	|	Expression KW_XOR Expression
 			 	|	KW_NOT Expression
 			 	;
 
-AtomExpr			:	SEP_PO Expression SEP_PF
+AtomExpr		:	SEP_PO Expression SEP_PF
 			 	|	TOK_INTEGER
 			 	|	TOK_REAL
 			 	|	TOK_BOOLEAN
@@ -349,24 +349,24 @@ AtomExpr			:	SEP_PO Expression SEP_PF
 			 	|	TOK_STRING
 			 	;
 
-VarExpr				:	TOK_IDENT
+VarExpr			:	TOK_IDENT
 				|	VarExpr SEP_CO ListIndices SEP_CF
 				|	VarExpr SEP_DOT TOK_IDENT %prec OP_DOT
 				|	VarExpr OP_PTR
 				;
 
-Call			 	:	TOK_IDENT Parameters
+Call			:	TOK_IDENT Parameters
 				;
 
-Parameters			:	SEP_PO ListParameters SEP_PF
+Parameters		:	SEP_PO ListParameters SEP_PF
 				|	SEP_PO SEP_PF
 				;
 
-ListIndices			:	ListIndices SEP_COMMA Expression
+ListIndices		:	ListIndices SEP_COMMA Expression
 				|	Expression
 				;
 
-ListParameters			:	ListParameters SEP_COMMA Expression
+ListParameters	:	ListParameters SEP_COMMA Expression
 				|	Expression
 				;
 

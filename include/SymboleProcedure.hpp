@@ -40,7 +40,7 @@ public:
      * @brief Retourne la table des symboles de la procédure.
      * @return La table des symboles.
      */
-    TableDesSymboles* SymboleProcedure::getTableDesSymboles();
+    TableDesSymboles* getTableDesSymboles();
 };
 
 #endif

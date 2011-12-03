@@ -30,7 +30,7 @@ class SymboleVariable : public Symbole
          * @brief Retourne le type de la variable.
          * @return Le Type de la variable.
          */
-        const Type *getType();
+        Type *getType();
 };
 
 #endif

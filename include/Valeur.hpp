@@ -11,7 +11,7 @@
 class Valeur {
 public:
     Valeur();
-    Valeur(const Valeur& orig);
+    Valeur(Valeur& orig);
     virtual ~Valeur();
 private:
 

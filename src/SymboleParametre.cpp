@@ -5,7 +5,7 @@ SymboleParametre::SymboleParametre(int id, Type *type): Symbole(id, CATEGORIE_PA
     this->type = type;
 }
 
-const Type *SymboleParametre::getType()
+Type *SymboleParametre::getType()
 {
     return type;
 }

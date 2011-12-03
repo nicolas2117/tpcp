@@ -10,7 +10,7 @@
 Instruction::Instruction() {
 }
 
-Instruction::Instruction(const Instruction& orig) {
+Instruction::Instruction(Instruction& orig) {
 }
 
 Instruction::~Instruction() {

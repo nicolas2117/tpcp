@@ -12,7 +12,7 @@ Operande::Operande(int identificateur) {
 Operande::Operande(Valeur valeur) {
 }
 
-Operande::Operande(const Operande& orig) {
+Operande::Operande(Operande& orig) {
 }
 
 Operande::~Operande() {

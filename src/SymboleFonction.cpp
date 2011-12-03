@@ -1,6 +1,6 @@
 #include <SymboleFonction.hpp>
 
-SymboleFonction::SymboleFonction(int id, Type *typeDeRetour, const TableDesSymboles *parent, int arite): Symbole(id, CATEGORIE_FONCTION)
+SymboleFonction::SymboleFonction(int id, Type *typeDeRetour, TableDesSymboles *parent, int arite): Symbole(id, CATEGORIE_FONCTION)
 {
     this->typeDeRetour = typeDeRetour;
     tablesDesSymbolesFonction = new TableDesSymboles(parent);

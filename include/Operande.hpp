@@ -14,7 +14,7 @@ class Operande {
 public:
     Operande(Valeur valeur);
     Operande(int identificateur);
-    Operande(const Operande& orig);
+    Operande(Operande& orig);
     virtual ~Operande();
 private:
     bool OperandeEstValeur;

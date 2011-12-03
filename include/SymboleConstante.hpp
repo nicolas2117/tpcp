@@ -30,7 +30,7 @@ class SymboleConstante : public Symbole
          * @brief Retourne le type de la constante.
          * @return Le Type de la constante.
          */
-        const Type *getType();
+        Type *getType();
 };
 
 #endif

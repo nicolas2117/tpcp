@@ -10,7 +10,7 @@
 Valeur::Valeur() {
 }
 
-Valeur::Valeur(const Valeur& orig) {
+Valeur::Valeur(Valeur& orig) {
 }
 
 Valeur::~Valeur() {

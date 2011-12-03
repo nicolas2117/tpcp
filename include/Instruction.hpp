@@ -13,7 +13,7 @@
 class Instruction {
 public:
     Instruction();
-    Instruction(const Instruction& orig);
+    Instruction(Instruction& orig);
     virtual ~Instruction();
 private:
     Operande* operande1;

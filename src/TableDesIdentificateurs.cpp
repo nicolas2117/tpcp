@@ -12,7 +12,7 @@ TableDesIdentificateurs::~TableDesIdentificateurs() {
 
 }
 
-const std::string& TableDesIdentificateurs::getNom(int id) {
+std::string& TableDesIdentificateurs::getNom(int id) {
     return _mapId[id]; // On retourne l'identificateur correspondant à l'id.
 }
 
@@ -42,7 +42,7 @@ void TableDesIdentificateurs::afficher(std::ostream &flux) {
     flux << "---IdentificatorTable" << std::endl;
 }
 
-int TableDesIdentificateurs::ajouter(const char *str) {
+int TableDesIdentificateurs::ajouter(char *str) {
     int temp = getId(str); // On récupère l'id.
     if (temp == -1) // Si l'identificateur n'est pas dans la table
     {

@@ -6,7 +6,7 @@ TableDesSymboles::TableDesSymboles() {
     this->parent = NULL;
 }
 
-TableDesSymboles::TableDesSymboles(const TableDesSymboles *parent) {
+TableDesSymboles::TableDesSymboles(TableDesSymboles *parent) {
     this->parent = parent;
 }
 
@@ -18,7 +18,7 @@ void TableDesSymboles::ajouterSymbole(Symbole *symbole) {
     symboles.push_back(symbole);
 }
 
-const Symbole *TableDesSymboles::getSymbole(int id) const {
+Symbole *TableDesSymboles::getSymbole(int id) {
     unsigned int i;
     for (i = 0; i < symboles.size(); i++) {
         if (symboles[i]->getId() == id)
@@ -40,7 +40,7 @@ void TableDesSymboles::afficher(std::ostream &flux) {
     flux << "---SymbolTable" << std::endl;
 }
 
-const TableDesSymboles* TableDesSymboles::getParent() {
+TableDesSymboles* TableDesSymboles::getParent() {
     return this->parent;
 }
 

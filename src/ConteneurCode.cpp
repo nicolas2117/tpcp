@@ -10,7 +10,7 @@
 ConteneurCode::ConteneurCode() {
 }
 
-ConteneurCode::ConteneurCode(const ConteneurCode& orig) {
+ConteneurCode::ConteneurCode(ConteneurCode& orig) {
 }
 
 ConteneurCode::~ConteneurCode() {

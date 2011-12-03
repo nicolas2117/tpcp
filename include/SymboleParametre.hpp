@@ -30,7 +30,7 @@ class SymboleParametre : public Symbole
          * @brief Retourne le type du parametre.
          * @return Le type du parametre.
          */
-        const Type *getType();
+        Type *getType();
 };
 
 #endif

@@ -28,7 +28,7 @@ public:
      * @param parent La table des symboles parent.
      * @param arite L'arité de la fonction.
      */
-    SymboleFonction(int id, Type *typeDeRetour, const TableDesSymboles *parent, int arite);
+    SymboleFonction(int id, Type *typeDeRetour, TableDesSymboles *parent, int arite);
 
     /**
      * @brief destructeur.

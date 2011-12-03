@@ -5,7 +5,7 @@ SymboleConstante::SymboleConstante(int id, Type *type): Symbole(id, CATEGORIE_CO
     this->type = type;
 }
 
-const Type *SymboleConstante::getType()
+Type *SymboleConstante::getType()
 {
     return type;
 }

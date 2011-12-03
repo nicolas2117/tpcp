@@ -18,7 +18,7 @@
 class TableDesSymboles {
 private:
     std::vector<Symbole *> symboles; /**< Liste des symboles. */
-    const TableDesSymboles *parent; /**< Pointeur vers la table des symboles parent. */
+    TableDesSymboles *parent; /**< Pointeur vers la table des symboles parent. */
 
 public:
     /**
@@ -30,7 +30,7 @@ public:
      * @brief constructeur.
      * @param parent Pointeur vers la table des symboles parent.
      */
-    TableDesSymboles(const TableDesSymboles *parent);
+    TableDesSymboles(TableDesSymboles *parent);
 
     /**
      * @brief Destructeur.
@@ -48,7 +48,7 @@ public:
      * @param id L'id du symbole que l'on veut récupèrer.
      * @return Un pointeur vers un symbole.
      */
-    const Symbole *getSymbole(int id) const;
+    Symbole *getSymbole(int id);
 
     /**
      * @brief Affiche la table des symboles.
@@ -60,7 +60,7 @@ public:
      * @brief Retourne la table des symboles parents
      * @param la table des symboles du parent
      */
-    const TableDesSymboles* getParent();
+    TableDesSymboles* getParent();
 };
 
 #endif

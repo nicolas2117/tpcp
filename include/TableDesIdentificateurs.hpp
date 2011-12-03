@@ -32,7 +32,7 @@ public:
      * @param str L'identificateur.
      * @return L'id de l'identificateur dans la table
      */
-    int ajouter(const char *str);
+    int ajouter(char *str);
     
     /**
      * @brief Affiche la table des identificateurs.
@@ -45,7 +45,7 @@ public:
      * @param id L'id de l'identificateur que l'on veut récupérer.
      * @return L'identificateur.
      */
-    const std::string& getNom (int id);
+    std::string& getNom (int id);
     
     /**
      * @brief Retourne l'id de l'identificateur.

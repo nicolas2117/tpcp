@@ -11,7 +11,7 @@
 class ConteneurCode {
 public:
     ConteneurCode();
-    ConteneurCode(const ConteneurCode& orig);
+    ConteneurCode(ConteneurCode& orig);
     virtual ~ConteneurCode();
 private:
 

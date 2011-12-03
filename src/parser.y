@@ -4,6 +4,8 @@
 #include <queue>
 #include <TableDesSymboles.hpp>
 #include <SymboleProgramme.hpp>
+#include <SymboleFonction.hpp>
+#include <SymboleProcedure.hpp>
 #include <SymboleVariable.hpp>
 #include <iostream>
 #include <Type.hpp>
@@ -14,6 +16,9 @@ extern int yylex ();
 
 TableDesSymboles tableDesSymbolesDuProgramme;
 TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
+
+SymboleProcedure *symboleProcedure;
+SymboleFonction *symboleFonction;
 
 std::queue<int> fileId; // File d'identifiant
 
@@ -92,7 +97,8 @@ std::queue<int> fileId; // File d'identifiant
 %token <valeurBoolean> TOK_BOOLEAN
 %token <valeurString> TOK_STRING
 
-%type <type> Type UserType BaseType
+%type <id> FuncIdent ProcIdent
+%type <type> Type UserType BaseType FuncResult
 
 %start Program
 
@@ -185,13 +191,23 @@ DeclFunc		:	ProcDecl
 			 	;
 
 ProcDecl		:	ProcHeader SEP_SCOL Block
+					{
+						// On quitte la procédure, on revient à la table des symboles parent.
+						tableDesSymbolesCourante = tableDesSymbolesCourante->getParent();
+					}
 			 	;
 
 ProcHeader		:	ProcIdent
+					{
+						// Déclaration d'une procedure sans parametre.
+						symboleProcedure =  new SymboleProcedure($1, tableDesSymbolesCourante, 0);
+						tableDesSymbolesCourante->ajouterSymbole(symboleProcedure);
+						tableDesSymbolesCourante = symboleProcedure->getTableDesSymboles();  
+					}
 			 	|	ProcIdent FormalArgs
 			 	;
 
-ProcIdent		:	KW_PROC TOK_IDENT
+ProcIdent		:	KW_PROC TOK_IDENT {$$ = $2}
 			 	;
 
 FormalArgs		:	SEP_PO ListFormalArgs SEP_PF
@@ -212,16 +228,26 @@ VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
 			 	;
 
 FuncDecl		:	FuncHeader SEP_SCOL Block
+					{
+						// On quitte la fonction, on revient à la table des symboles parent.
+						tableDesSymbolesCourante = tableDesSymbolesCourante->getParent();
+					}
 			 	;
 
 FuncHeader		:	FuncIdent FuncResult
+					{
+						// Déclaration d'une fonction sans parametre.
+						symboleFonction = new SymboleFonction($1, $2, tableDesSymbolesCourante, 0);
+						tableDesSymbolesCourante->ajouterSymbole(symboleFonction);
+						tableDesSymbolesCourante = symboleFonction->getTableDesSymboles();  
+					}
 			 	|	FuncIdent FormalArgs FuncResult
 			 	;
 
-FuncIdent		:	KW_FUNC TOK_IDENT
+FuncIdent		:	KW_FUNC TOK_IDENT {$$ = $2}
 			 	;
 
-FuncResult		:	SEP_DOTS BaseType
+FuncResult		:	SEP_DOTS BaseType {$$ = $2}
 			 	;
 
 Type			:	UserType {$$ = $1}

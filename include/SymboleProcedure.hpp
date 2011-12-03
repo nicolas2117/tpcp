@@ -13,30 +13,34 @@
 /**
  * @brief Classe symboleProcedure.
  */
-class SymboleProcedure : public Symbole
-{
-    private:
-        TableDesSymboles *tablesDesSymbolesProcedure; /**< Table des symboles de la procedure. */
-		int arite; /**< Arité de la procédure. */
-    public:
-            /**
-         * @brief Constructeur.
-         * @param id id du symbole.
-         * @param parent La table des symboles parent.
-		 * @param arite L'arité de la procédure.
-         */
-        SymboleProcedure(int id, const TableDesSymboles *parent, int arite);
+class SymboleProcedure : public Symbole {
+private:
+    TableDesSymboles *tablesDesSymbolesProcedure; /**< Table des symboles de la procedure. */
+    int arite; /**< Arité de la procédure. */
+public:
+    /**
+     * @brief Constructeur.
+     * @param id id du symbole.
+     * @param parent La table des symboles parent.
+     * @param arite L'arité de la procédure.
+     */
+    SymboleProcedure(int id, const TableDesSymboles *parent, int arite);
 
-        /**
-         * @brief destructeur.
-         */
-        ~SymboleProcedure();
+    /**
+     * @brief destructeur.
+     */
+    ~SymboleProcedure();
 
-		/**
-         * @brief Retourne l'arité de la procédure.
-         * @return L'arité de la procédure.
-         */
-		int getArite();
+    /**
+     * @brief Retourne l'arité de la procédure.
+     * @return L'arité de la procédure.
+     */
+    int getArite();
+    /**
+     * @brief Retourne la table des symboles de la procédure.
+     * @return La table des symboles.
+     */
+    TableDesSymboles* SymboleProcedure::getTableDesSymboles();
 };
 
 #endif

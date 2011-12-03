@@ -15,3 +15,7 @@ int SymboleProcedure::getArite()
 {
     return arite;
 }
+
+TableDesSymboles* SymboleProcedure::getTableDesSymboles() {
+    return this->tablesDesSymbolesProcedure;
+}

@@ -16,3 +16,7 @@ int SymboleFonction::getArite()
 {
     return arite;
 }
+
+TableDesSymboles* SymboleFonction::getTableDesSymboles() {
+    return this->tablesDesSymbolesFonction;
+}

@@ -1,6 +1,6 @@
 /* 
  * File:   Operande.hpp
- * Author: claudemm
+ * Author: Maxime Mélinon
  *
  * Created on 4 novembre 2011, 16:25
  */
@@ -8,13 +8,20 @@
 #ifndef OPERANDE_HPP
 #define	OPERANDE_HPP
 
+#include "Valeur.hpp"
+
 class Operande {
 public:
-    Operande();
+    Operande(Valeur valeur);
+    Operande(int identificateur);
     Operande(const Operande& orig);
     virtual ~Operande();
 private:
-
+    bool OperandeEstValeur;
+    union {
+        Valeur* valeur;
+        int identificateur;
+    };
 };
 
 #endif	/* OPERANDE_HPP */

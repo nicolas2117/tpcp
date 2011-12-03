@@ -1,6 +1,6 @@
 /* 
  * File:   ConteneurCode.hpp
- * Author: claudemm
+ * Author: Maxime Mélinon
  *
  * Created on 4 novembre 2011, 16:28
  */

@@ -1,6 +1,6 @@
 /* 
  * File:   Instruction.cpp
- * Author: claudemm
+ * Author: Maxime Mélinon
  * 
  * Created on 4 novembre 2011, 16:27
  */

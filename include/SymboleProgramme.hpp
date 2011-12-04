@@ -8,18 +8,21 @@
  */
 
 #include <Symbole.hpp>
+#include "TableDesIdentificateurs.hpp"
+
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
 /**
  * @brief Classe SymboleProgramme.
  */
-class SymboleProgramme : public Symbole
-{
-	public:
-        /**
-         * @brief Constructeur.
-         * @param id id du symbole.
-         */
-        SymboleProgramme(int id);
+class SymboleProgramme : public Symbole {
+public:
+    /**
+     * @brief Constructeur.
+     * @param id id du symbole.
+     */
+    SymboleProgramme(int id);
+    void toString(std::ostream &flux);
 };
 
 #endif

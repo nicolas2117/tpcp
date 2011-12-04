@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <ostream>
+#include <string>
 
 #include <Symbole.hpp>
 
@@ -19,7 +20,7 @@ class TableDesSymboles {
 private:
     std::vector<Symbole *> symboles; /**< Liste des symboles. */
     TableDesSymboles *parent; /**< Pointeur vers la table des symboles parent. */
-
+    std::string nomProcedure;
 public:
     /**
      * @brief constructeur.

@@ -2,10 +2,12 @@
 #define SYMBOLE_TEMPORAIRE
 
 #include <Symbole.hpp>
+#include "TableDesIdentificateurs.hpp"
 
-class SymboleTemporaire : public Symbole
-{
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
+class SymboleTemporaire : public Symbole {
+    void toString(std::ostream &flux);
 };
 
 #endif

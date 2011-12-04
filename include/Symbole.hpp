@@ -1,6 +1,8 @@
 #ifndef SYMBOLE
 #define SYMBOLE
 
+#include <string>
+
 /**
  * @file Symbole.hpp
  * @brief Fichier qui contient la définition de la classe symbole.
@@ -50,6 +52,8 @@ class Symbole
          * @return La categorie du symbole.
          */
         Categorie getCategorie();
+        
+        virtual void toString(std::ostream &flux){};
 };
 
 #endif

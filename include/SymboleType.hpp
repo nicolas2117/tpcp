@@ -2,10 +2,12 @@
 #define SYMBOLE_TYPE
 
 #include <Symbole.hpp>
+#include "TableDesIdentificateurs.hpp"
 
-class SymboleType : public Symbole
-{
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
+class SymboleType : public Symbole {
+    void toString(std::ostream &flux);
 };
 
 #endif

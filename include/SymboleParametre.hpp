@@ -9,28 +9,31 @@
 
 #include <Symbole.hpp>
 #include <Type.hpp>
+#include "TableDesIdentificateurs.hpp"
+
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
 /**
  * @brief Classe SymboleParametre.
  */
-class SymboleParametre : public Symbole
-{
-    private:
-        Type *type; /**< Type du parametre. */
+class SymboleParametre : public Symbole {
+private:
+    Type *type; /**< Type du parametre. */
 
-	public:
-        /**
-         * @brief Constructeur.
-         * @param id id du symbole.
-         * @param type Type du parametre.
-         */
-        SymboleParametre(int id, Type *type);
+public:
+    /**
+     * @brief Constructeur.
+     * @param id id du symbole.
+     * @param type Type du parametre.
+     */
+    SymboleParametre(int id, Type *type);
 
-        /**
-         * @brief Retourne le type du parametre.
-         * @return Le type du parametre.
-         */
-        Type *getType();
+    /**
+     * @brief Retourne le type du parametre.
+     * @return Le type du parametre.
+     */
+    Type *getType();
+    void toString(std::ostream &flux);
 };
 
 #endif

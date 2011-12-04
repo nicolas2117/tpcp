@@ -10,6 +10,9 @@
 #include <Symbole.hpp>
 #include <TableDesSymboles.hpp>
 #include <Type.hpp>
+#include "TableDesIdentificateurs.hpp"
+
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
 /**
  * @brief Classe symboleFonction.
@@ -45,6 +48,7 @@ public:
      * @return La table des symboles.
      */
     TableDesSymboles* getTableDesSymboles();
+    void toString(std::ostream &flux);
 };
 
 #endif

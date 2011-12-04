@@ -2,6 +2,10 @@
 #include <iostream>
 #include <TableDesSymboles.hpp>
 
+#include "TableDesIdentificateurs.hpp"
+
+extern TableDesIdentificateurs tableDesIdentificateurs;
+
 TableDesSymboles::TableDesSymboles() {
     this->parent = NULL;
 }
@@ -31,11 +35,16 @@ Symbole *TableDesSymboles::getSymbole(int id) {
     }
 }
 
+
 void TableDesSymboles::afficher(std::ostream &flux) {
+    /*
+     * Max has left the building
+     */
     unsigned int i;
+    
     flux << "+++SymbolTable(" << 0 << ":" << 0 << ")" << std::endl;
     for (i = 0; i < symboles.size(); i++) {
-        std::cout << symboles[i]->getId() << " " << symboles[i]->getCategorie() << std::endl;
+        symboles[i]->toString(flux);
     }
     flux << "---SymbolTable" << std::endl;
 }

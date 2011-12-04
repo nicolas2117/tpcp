@@ -20,6 +20,8 @@ TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 SymboleProcedure *symboleProcedure;
 SymboleFonction *symboleFonction;
 
+TableDesSymboles *tableDesSymboles;
+
 int arite = 0;
 
 std::queue<int> fileId; // File d'identifiant
@@ -232,7 +234,8 @@ ProcDecl		:	ProcHeader SEP_SCOL Block
 ProcHeader		:	ProcIdent
 					{
 						// Déclaration d'une procedure sans parametre.
-						symboleProcedure =  new SymboleProcedure($1, tableDesSymbolesCourante, 0);
+						tableDesSymboles = new TableDesSymboles(tableDesSymbolesCourante);
+						symboleProcedure =  new SymboleProcedure($1, 0, tableDesSymboles);
 						tableDesSymbolesCourante->ajouterSymbole(symboleProcedure);
 						tableDesSymbolesCourante = symboleProcedure->getTableDesSymboles();  
 					}
@@ -263,9 +266,15 @@ FormalArg		:	ValFormalArg
 			 	;
 
 ValFormalArg	:	ListIdent SEP_DOTS BaseType
+					{
+						// Arguments passé par valeur 
+					}
 			 	;
 
 VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
+					{
+						// Arguments passé par adresse
+					}
 			 	;
 
 /*******************************************************************************
@@ -284,7 +293,8 @@ FuncDecl		:	FuncHeader SEP_SCOL Block
 FuncHeader		:	FuncIdent FuncResult
 					{
 						// Déclaration d'une fonction sans parametre.
-						symboleFonction = new SymboleFonction($1, $2, tableDesSymbolesCourante, 0);
+						tableDesSymboles = new TableDesSymboles(tableDesSymbolesCourante);
+						symboleFonction = new SymboleFonction($1, $2, 0, tableDesSymboles);
 						tableDesSymbolesCourante->ajouterSymbole(symboleFonction);
 						tableDesSymbolesCourante = symboleFonction->getTableDesSymboles();  
 					}

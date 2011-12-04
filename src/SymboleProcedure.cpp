@@ -1,8 +1,8 @@
 #include <SymboleProcedure.hpp>
 
-SymboleProcedure::SymboleProcedure(int id, TableDesSymboles *parent, int arite): Symbole(id, CATEGORIE_PROCEDURE)
+SymboleProcedure::SymboleProcedure(int id, int arite, TableDesSymboles *tablesDesSymboles): Symbole(id, CATEGORIE_PROCEDURE)
 {
-    tablesDesSymbolesProcedure = new TableDesSymboles(parent);
+    tablesDesSymbolesProcedure = tablesDesSymboles;
 	this->arite = arite;
 }
 

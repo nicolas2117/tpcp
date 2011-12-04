@@ -491,10 +491,9 @@ Call			:	TOK_IDENT Parameters
 					{
 						// Appel d'une fonction
 						// On vérifie que la fonction existe
-						
+						tableDesSymbolesCourante->getSymbole($1);
 						// On vérifie le nombre d'arguments de la fonction
 
-						std::cout << arite << std::endl;
 						arite = 0;
 					}
 				;

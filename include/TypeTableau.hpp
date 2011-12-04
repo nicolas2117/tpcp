@@ -5,17 +5,15 @@
 #include <cstdlib>
 #include <iostream>
 
-
-class TypeTableau : public Type
-{
-    private:
-    public:
+class TypeTableau : public Type {
+private:
+public:
     Type * t;
     TypeTableau();
     TypeTableau(Type * tDuTab);
     TypeTableau(TypeTableau * tT);
-    bool operator== (Type& type);
-    void toString(std::ostream flux){ flux << "type:tableau"; };
+    bool operator==(Type& type);
+    void toString(std::ostream &flux);
 };
 
 #endif // TYPETABLEAU_H

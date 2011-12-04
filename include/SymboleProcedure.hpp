@@ -27,7 +27,7 @@ public:
      * @param parent La table des symboles parent.
      * @param arite L'arité de la procédure.
      */
-    SymboleProcedure(int id, TableDesSymboles *parent, int arite);
+    SymboleProcedure(int id, int arite, TableDesSymboles *tablesDesSymboles);
 
     /**
      * @brief destructeur.

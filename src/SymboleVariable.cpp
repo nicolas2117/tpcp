@@ -2,9 +2,6 @@
 #include <cstdlib>
 #include <iostream>
 
-
-
-
 SymboleVariable::SymboleVariable(int id, Type *type) : Symbole(id, CATEGORIE_VARIABLE) {
     this->type = type;
 }
@@ -43,14 +40,15 @@ static std::string getNomSymboleCategorie(int categorie) {
             return "Variable";
             break;
     }
+    return "INCONNU";
 }
 
 void SymboleVariable::toString(std::ostream &flux) {
     flux << "\t"
-            <<tableDesIdentificateurs.getNom(this->getId())
+            << tableDesIdentificateurs.getNom(this->getId())
             << "\t"
             << getNomSymboleCategorie(this->getCategorie())
-            << "\t\t["
-           // << this->type
-            << "]\n";
+            << "\t\t[";
+    this->type->toString(flux);
+    flux << "]\n";
 }

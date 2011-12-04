@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <TableDesSymboles.hpp>
+#include <SymboleProcedure.hpp>
+#include <SymboleFonction.hpp>
 
 #include "TableDesIdentificateurs.hpp"
 
@@ -41,12 +43,25 @@ void TableDesSymboles::afficher(std::ostream &flux) {
      * Max has left the building
      */
     unsigned int i;
+    std::vector<TableDesSymboles *> tables;
+    
+    
     
     flux << "+++SymbolTable(" << 0 << ":" << 0 << ")" << std::endl;
     for (i = 0; i < symboles.size(); i++) {
         symboles[i]->toString(flux);
+        if (symboles[i]->getCategorie() == CATEGORIE_FONCTION ) {
+            tables.push_back(dynamic_cast<SymboleFonction*>(symboles[i])->getTableDesSymboles());
+        }
+        if (symboles[i]->getCategorie() == CATEGORIE_PROCEDURE ) {
+            tables.push_back(dynamic_cast<SymboleProcedure*>(symboles[i])->getTableDesSymboles());
+        }
+        
     }
     flux << "---SymbolTable" << std::endl;
+    for ( i= 0 ; i < tables.size() ; i++ ) {
+        tables[i]->afficher(flux);
+    }
 }
 
 TableDesSymboles* TableDesSymboles::getParent() {

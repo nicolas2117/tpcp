@@ -34,6 +34,7 @@ static std::string getNomSymboleCategorie(int categorie) {
             return "Variable";
             break;
     }
+    return "INCONNU";
 }
 
 void SymboleType::toString(std::ostream &flux) {
@@ -42,6 +43,6 @@ void SymboleType::toString(std::ostream &flux) {
             << "\t"
             << getNomSymboleCategorie(this->getCategorie())
             << "\t\t["
-            << "0"
+            << "Type:…"
             << "]\n";
 }

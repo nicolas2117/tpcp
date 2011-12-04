@@ -4,10 +4,10 @@
 
 
 
-SymboleFonction::SymboleFonction(int id, Type *typeDeRetour, TableDesSymboles *parent, int arite): Symbole(id, CATEGORIE_FONCTION)
+SymboleFonction::SymboleFonction(int id, Type *typeDeRetour, int arite, TableDesSymboles *tablesDesSymboles): Symbole(id, CATEGORIE_FONCTION)
 {
     this->typeDeRetour = typeDeRetour;
-    tablesDesSymbolesFonction = new TableDesSymboles(parent);
+    tablesDesSymbolesFonction = tablesDesSymboles;
 	this->arite = arite;
 }
 
@@ -55,6 +55,7 @@ static std::string getNomSymboleCategorie(int categorie) {
             return "Variable";
             break;
     }
+    return "INCONNU";
 }
 
 void SymboleFonction::toString(std::ostream &flux) {

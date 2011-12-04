@@ -40,6 +40,7 @@ static std::string getNomSymboleCategorie(int categorie) {
             return "Variable";
             break;
     }
+    return "INCONNU";
 }
 
 void SymboleConstante::toString(std::ostream &flux) {

@@ -4,9 +4,9 @@
 
 
 
-SymboleProcedure::SymboleProcedure(int id, TableDesSymboles *parent, int arite): Symbole(id, CATEGORIE_PROCEDURE)
+SymboleProcedure::SymboleProcedure(int id, int arite, TableDesSymboles *tablesDesSymboles): Symbole(id, CATEGORIE_PROCEDURE)
 {
-    tablesDesSymbolesProcedure = new TableDesSymboles(parent);
+    tablesDesSymbolesProcedure = tablesDesSymboles;
 	this->arite = arite;
 }
 
@@ -54,6 +54,7 @@ static std::string getNomSymboleCategorie(int categorie) {
             return "Variable";
             break;
     }
+    return "INCONNU";
 }
 
 void SymboleProcedure::toString(std::ostream &flux) {
@@ -62,6 +63,6 @@ void SymboleProcedure::toString(std::ostream &flux) {
             << "\t"
             << getNomSymboleCategorie(this->getCategorie())
             << "\t\t["
-            << "0"
+            << "arity" << this->arite
             << "]\n";
 }

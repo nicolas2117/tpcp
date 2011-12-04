@@ -2,6 +2,8 @@
 #ifndef TYPEINTERVAL_H
 #define TYPEINTERVAL_H
 #include <Type.hpp>
+#include <cstdlib>
+#include <iostream>
 
 
 class TypeInterval : public Type
@@ -13,6 +15,7 @@ class TypeInterval : public Type
     TypeInterval();
     TypeInterval(int bI,int bS);
     bool operator==(Type& type);
+    void toString(std::ostream &flux);
 };
 
 #endif // TYPEINTERVAL_H

@@ -34,6 +34,7 @@ static std::string getNomSymboleCategorie(int categorie) {
             return "Variable";
             break;
     }
+    return "INCONNU";
 }
 
 void SymboleEtiquette::toString(std::ostream &flux) {

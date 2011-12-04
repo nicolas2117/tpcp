@@ -280,7 +280,7 @@ ValFormalArg	:	ListIdent SEP_DOTS BaseType
 						// Arguments passé par valeur 
                         while(!fileId.empty())
                             { 
-                                tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $3));                      
+                                tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $3, true));                      
                                 fileId.pop();
                             } 
 					}
@@ -296,7 +296,7 @@ VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
 						// Arguments passé par adresse
                         while(!fileId.empty())
                             { 
-                                tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $4));                      
+                                tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $4, false));                      
                                 fileId.pop();
                             } 
 					}

@@ -17,6 +17,7 @@ class SymboleParametre : public Symbole
 {
     private:
         Type *type; /**< Type du parametre. */
+		bool constant;
 
 	public:
         /**
@@ -24,7 +25,7 @@ class SymboleParametre : public Symbole
          * @param id id du symbole.
          * @param type Type du parametre.
          */
-        SymboleParametre(int id, Type *type);
+        SymboleParametre(int id, Type *type, bool constant);
 
         /**
          * @brief Retourne le type du parametre.

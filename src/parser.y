@@ -20,6 +20,8 @@ TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 SymboleProcedure *symboleProcedure;
 SymboleFonction *symboleFonction;
 
+int arite = 0;
+
 std::queue<int> fileId; // File d'identifiant
 
 %}
@@ -128,6 +130,12 @@ ProgramHeader   :   KW_PROGRAM TOK_IDENT
 Block			:	BlockDeclConst BlockDeclType BlockDeclVar BlockDeclFunc BlockCode
 				;
 
+/*******************************************************************************
+
+	Déclaration des constantes.
+
+*******************************************************************************/
+
 BlockDeclConst	:	KW_CONST ListDeclConst
 			 	|
 			 	;
@@ -139,6 +147,12 @@ ListDeclConst	:	ListDeclConst DeclConst
 DeclConst		:	TOK_IDENT OP_EQ Expression SEP_SCOL
 			 	;
 
+/*******************************************************************************
+
+	Déclaration des types.
+
+*******************************************************************************/
+
 BlockDeclType	:	KW_TYPE ListDeclType
 			 	|
 			 	;
@@ -149,6 +163,12 @@ ListDeclType	:	ListDeclType DeclType
 
 DeclType		:	TOK_IDENT OP_EQ Type SEP_SCOL
 			 	;
+
+/*******************************************************************************
+
+	Déclaration des variables.
+
+*******************************************************************************/
 
 BlockDeclVar	:	KW_VAR ListDeclVar
 			 	|
@@ -178,6 +198,12 @@ ListIdent		:	ListIdent SEP_COMMA TOK_IDENT
                     }
 			 	;
 
+/*******************************************************************************
+
+	Définition des fonctions/procédures.
+
+*******************************************************************************/
+
 BlockDeclFunc	:	ListDeclFunc SEP_SCOL
 			 	|
 			 	;
@@ -189,6 +215,12 @@ ListDeclFunc	:	ListDeclFunc SEP_SCOL DeclFunc
 DeclFunc		:	ProcDecl
 			 	|	FuncDecl
 			 	;
+
+/*******************************************************************************
+
+	Définition des procédures.
+
+*******************************************************************************/
 
 ProcDecl		:	ProcHeader SEP_SCOL Block
 					{
@@ -205,10 +237,19 @@ ProcHeader		:	ProcIdent
 						tableDesSymbolesCourante = symboleProcedure->getTableDesSymboles();  
 					}
 			 	|	ProcIdent FormalArgs
+					{
+						// Déclaration d'une procedure avec parametre.
+					}
 			 	;
 
 ProcIdent		:	KW_PROC TOK_IDENT {$$ = $2}
 			 	;
+
+/*******************************************************************************
+
+	Liste des arguments d'une fonction/procédure.
+
+*******************************************************************************/
 
 FormalArgs		:	SEP_PO ListFormalArgs SEP_PF
 			 	;
@@ -227,6 +268,12 @@ ValFormalArg	:	ListIdent SEP_DOTS BaseType
 VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
 			 	;
 
+/*******************************************************************************
+
+	Définition des fonctions.
+
+*******************************************************************************/
+
 FuncDecl		:	FuncHeader SEP_SCOL Block
 					{
 						// On quitte la fonction, on revient à la table des symboles parent.
@@ -242,6 +289,9 @@ FuncHeader		:	FuncIdent FuncResult
 						tableDesSymbolesCourante = symboleFonction->getTableDesSymboles();  
 					}
 			 	|	FuncIdent FormalArgs FuncResult
+					{
+						// Déclaration d'une fonction avec parametres.
+					}
 			 	;
 
 FuncIdent		:	KW_FUNC TOK_IDENT {$$ = $2}
@@ -249,6 +299,12 @@ FuncIdent		:	KW_FUNC TOK_IDENT {$$ = $2}
 
 FuncResult		:	SEP_DOTS BaseType {$$ = $2}
 			 	;
+
+/*******************************************************************************
+
+	Types.
+
+*******************************************************************************/
 
 Type			:	UserType {$$ = $1}
 			 	|	BaseType {$$ = $1}
@@ -310,6 +366,12 @@ RecordField		:	ListIdent SEP_DOTS Type
 
 PointerType		:	OP_PTR Type
 			 	;
+
+/*******************************************************************************
+
+	Code.
+
+*******************************************************************************/
 
 BlockCode		:	KW_BEGIN ListInstr KW_END
 				|	KW_BEGIN ListInstr SEP_SCOL KW_END
@@ -381,7 +443,24 @@ VarExpr			:	TOK_IDENT
 				|	VarExpr OP_PTR
 				;
 
+/*******************************************************************************
+
+	Appel de fonction.
+
+*******************************************************************************/
+
 Call			:	TOK_IDENT Parameters
+					{
+						// Appel d'une fonction
+
+						// On vérifie que la fonction existe
+
+						// On vérifie le nombre d'arguments de la fonction
+
+						//tableDesSymbolesCourante
+						std::cout << arite << std::endl;
+						arite = 0;
+					}
 				;
 
 Parameters		:	SEP_PO ListParameters SEP_PF
@@ -393,7 +472,13 @@ ListIndices		:	ListIndices SEP_COMMA Expression
 				;
 
 ListParameters	:	ListParameters SEP_COMMA Expression
+					{
+						arite++;
+					}
 				|	Expression
+					{
+						arite++;
+					}
 				;
 
 %%

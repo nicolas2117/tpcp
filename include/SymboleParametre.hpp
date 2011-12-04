@@ -19,6 +19,8 @@ extern TableDesIdentificateurs tableDesIdentificateurs;
 class SymboleParametre : public Symbole {
 private:
     Type *type; /**< Type du parametre. */
+		bool constant;
+
 
 public:
     /**
@@ -26,7 +28,7 @@ public:
      * @param id id du symbole.
      * @param type Type du parametre.
      */
-    SymboleParametre(int id, Type *type);
+    SymboleParametre(int id, Type *type, bool constant);
 
     /**
      * @brief Retourne le type du parametre.
@@ -34,6 +36,7 @@ public:
      */
     Type *getType();
     void toString(std::ostream &flux);
+
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include <SymboleFonction.hpp>
 #include <SymboleProcedure.hpp>
 #include <SymboleVariable.hpp>
+#include <SymboleParametre.hpp>
 #include <iostream>
 #include <Type.hpp>
 #include <GenerateurType.hpp>
@@ -21,6 +22,7 @@ SymboleProcedure *symboleProcedure;
 SymboleFonction *symboleFonction;
 
 TableDesSymboles *tableDesSymboles;
+bool nouvelleFonction = false; // Nouvelle fonction ou procédure
 
 int arite = 0;
 
@@ -242,6 +244,9 @@ ProcHeader		:	ProcIdent
 			 	|	ProcIdent FormalArgs
 					{
 						// Déclaration d'une procedure avec parametre.
+						symboleProcedure =  new SymboleProcedure($1, 0, tableDesSymbolesCourante);
+						tableDesSymbolesCourante->getParent()->ajouterSymbole(symboleProcedure);
+						nouvelleFonction = false;
 					}
 			 	;
 
@@ -267,13 +272,33 @@ FormalArg		:	ValFormalArg
 
 ValFormalArg	:	ListIdent SEP_DOTS BaseType
 					{
+						if (!nouvelleFonction) 
+						{
+							nouvelleFonction = true;
+							tableDesSymbolesCourante = new TableDesSymboles(tableDesSymbolesCourante);
+						}
 						// Arguments passé par valeur 
+                        while(!fileId.empty())
+                            { 
+                                tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $3, true));                      
+                                fileId.pop();
+                            } 
 					}
 			 	;
 
 VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
 					{
+						if (!nouvelleFonction) 
+						{
+							nouvelleFonction = true;
+							tableDesSymbolesCourante = new TableDesSymboles(tableDesSymbolesCourante);
+						}
 						// Arguments passé par adresse
+                        while(!fileId.empty())
+                            { 
+                                tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $4, false));                      
+                                fileId.pop();
+                            } 
 					}
 			 	;
 
@@ -301,6 +326,9 @@ FuncHeader		:	FuncIdent FuncResult
 			 	|	FuncIdent FormalArgs FuncResult
 					{
 						// Déclaration d'une fonction avec parametres.
+						symboleFonction =  new SymboleFonction($1, $3, 0, tableDesSymbolesCourante);
+						tableDesSymbolesCourante->getParent()->ajouterSymbole(symboleFonction);
+						nouvelleFonction = false;
 					}
 			 	;
 
@@ -462,12 +490,10 @@ VarExpr			:	TOK_IDENT
 Call			:	TOK_IDENT Parameters
 					{
 						// Appel d'une fonction
-
 						// On vérifie que la fonction existe
-
+						
 						// On vérifie le nombre d'arguments de la fonction
 
-						//tableDesSymbolesCourante
 						std::cout << arite << std::endl;
 						arite = 0;
 					}

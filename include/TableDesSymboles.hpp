@@ -20,7 +20,7 @@ class TableDesSymboles {
 private:
     std::vector<Symbole *> symboles; /**< Liste des symboles. */
     TableDesSymboles *parent; /**< Pointeur vers la table des symboles parent. */
-    std::string nomProcedure;
+    std::string nomContexte;
 public:
     /**
      * @brief constructeur.
@@ -62,6 +62,8 @@ public:
      * @param la table des symboles du parent
      */
     TableDesSymboles* getParent();
+
+    void setNomContexte(std::string nom);
 };
 
 #endif

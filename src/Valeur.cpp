@@ -10,7 +10,26 @@
 Valeur::Valeur() {
 }
 
-Valeur::Valeur(Valeur& orig) {
+Valeur::Valeur(int valeur)
+{
+    intValeur = valeur;
+    type = TYPE_INT;
+}
+
+Valeur::Valeur(double valeur)
+{
+    doubleValeur = valeur;
+
+}
+
+Valeur::Valeur(char valeur)
+{
+    charValeur = valeur;
+}
+
+Valeur::Valeur(bool valeur)
+{
+    boolValeur = valeur;
 }
 
 Valeur::~Valeur() {

@@ -8,6 +8,9 @@
 #include <vector>
 #include "ConteneurCode.hpp"
 #include "Instruction.hpp"
+#include <TableDesIdentificateurs.hpp>
+
+extern TableDesIdentificateurs tableDesIdentificateurs;
 
 ConteneurCode::ConteneurCode() {
 }
@@ -26,4 +29,13 @@ void ConteneurCode::ajouterCode(ConteneurCode* conteneur) {
     for ( unsigned int i ; i < conteneur->listeInstructions.size() ; i++) {
         this->listeInstructions.push_back(conteneur->listeInstructions[i]);
     }
+} 
+
+void ConteneurCode::afficherCode3a()
+{
+     unsigned int i;
+     for(i = 0; i < listeInstructions.size(); i++)
+     {
+         //tableDesIdentificateurs.getNom
+     } 
 }

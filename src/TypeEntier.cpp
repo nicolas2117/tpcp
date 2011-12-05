@@ -6,5 +6,5 @@ bool TypeEntier::operator==(Type& type) {
 };
 
 void TypeEntier::toString(std::ostream &flux) {
-    flux << "type:integer";
+    flux << "integer";
 };

@@ -6,6 +6,7 @@
 #include <SymboleProgramme.hpp>
 #include <SymboleFonction.hpp>
 #include <SymboleProcedure.hpp>
+#include <Code3ad.hpp>
 #include <SymboleVariable.hpp>
 #include <SymboleParametre.hpp>
 #include <iostream>
@@ -20,6 +21,9 @@ extern int yylex ();
 
 TableDesSymboles tableDesSymbolesDuProgramme;
 TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
+
+ConteneurCode conteneurCodeDuProgramme;
+ConteneurCode *conteneurCodeCourant = &conteneurCodeDuProgramme;
 
 SymboleProcedure *symboleProcedure;
 SymboleFonction *symboleFonction;
@@ -37,8 +41,6 @@ std::queue<int> fileId; // File d'identifiant
 
 %union{
 	Operande *operande;
-	Instruction *instruction;
-	ConteneurCode *conteneurCode;
     int id;
 	int valeurInteger;
     double valeurReal;
@@ -114,10 +116,7 @@ std::queue<int> fileId; // File d'identifiant
 
 %type <id> FuncIdent ProcIdent
 %type <type> Type UserType BaseType FuncResult
-/*%type <operande>
-%type <instruction>
-%type <conteneurCode>*/
-
+%type <operande> Expression MathExpr CompExpr BoolExpr AtomExpr VarExpr Call
 
 %start Program
 
@@ -259,10 +258,11 @@ ProcHeader		:	ProcIdent
 			 	|	ProcIdent FormalArgs
 					{
 						// Déclaration d'une procedure avec parametre.
-						symboleProcedure =  new SymboleProcedure($1, 0, tableDesSymbolesCourante);
+						symboleProcedure =  new SymboleProcedure($1, arite, tableDesSymbolesCourante);
 						tableDesSymbolesCourante->setIdContexte($1);
 						tableDesSymbolesCourante->getParent()->ajouterSymbole(symboleProcedure);
 						nouvelleFonction = false;
+						arite = 0;
 					}
 			 	;
 
@@ -298,6 +298,7 @@ ValFormalArg	:	ListIdent SEP_DOTS BaseType
                             { 
                                 tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $3, true));                      
                                 fileId.pop();
+                                arite++;
                             } 
 					}
 			 	;
@@ -314,6 +315,7 @@ VarFormalArg	:	KW_VAR ListIdent SEP_DOTS BaseType
                             { 
                                 tableDesSymbolesCourante->ajouterSymbole(new SymboleParametre(fileId.front(), $4, false));                      
                                 fileId.pop();
+                                arite++;
                             } 
 					}
 			 	;
@@ -343,10 +345,11 @@ FuncHeader		:	FuncIdent FuncResult
 			 	|	FuncIdent FormalArgs FuncResult
 					{
 						// Déclaration d'une fonction avec parametres.
-						symboleFonction =  new SymboleFonction($1, $3, 0, tableDesSymbolesCourante);
+						symboleFonction =  new SymboleFonction($1, $3, arite, tableDesSymbolesCourante);
 						tableDesSymbolesCourante->setIdContexte($1);
 						tableDesSymbolesCourante->getParent()->ajouterSymbole(symboleFonction);
 						nouvelleFonction = false;
+						arite = 0;
 					}
 			 	;
 
@@ -461,10 +464,23 @@ Expression		:	MathExpr
 			 	;
 
 MathExpr		:	Expression OP_ADD Expression
+					{
+						conteneurCodeCourant->ajouterCode(new Instruction($1, $3, NULL, OPCODE_ADD));
+						//$$ = $1;
+					}
 			 	|	Expression OP_SUB Expression
+					{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	|	Expression OP_MUL Expression
+					{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	|	Expression OP_SLASH Expression
 			 	|	Expression KW_DIV Expression
+					{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	|	Expression KW_MOD Expression
 			 	|	Expression OP_EXP Expression
 			 	|	OP_SUB Expression %prec OP_NEG
@@ -480,20 +496,40 @@ CompExpr		:	Expression OP_EQ Expression
 			 	;
 
 BoolExpr		:	Expression KW_AND Expression
+					{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	|	Expression KW_OR Expression
+			 		{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	|	Expression KW_XOR Expression
+					{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	|	KW_NOT Expression
+					{
+						//conteneurCodeCourant->ajouterCode(new Instruction());
+					}
 			 	;
 
-AtomExpr		:	SEP_PO Expression SEP_PF
-			 	|	TOK_INTEGER
-			 	|	TOK_REAL
-			 	|	TOK_BOOLEAN
-			 	|	KW_NIL
-			 	|	TOK_STRING
+AtomExpr		:	SEP_PO Expression SEP_PF { $$ = 0 }
+			 	|	TOK_INTEGER { $$ = new Operande(new Valeur($1)); }
+			 	|	TOK_REAL { $$ = new Operande(new Valeur($1)); }
+			 	|	TOK_BOOLEAN { $$ = new Operande(new Valeur($1)); }
+			 	|	KW_NIL { $$ = 0 }
+			 	|	TOK_STRING { $$ = 0 }
 			 	;
 
-VarExpr			:	TOK_IDENT
+VarExpr			:	TOK_IDENT 
+					{
+						symbole = tableDesSymbolesCourante->getSymbole($1);
+						if(symbole == NULL) 
+						{
+							yyerror("Identifiant non déclaré");
+						}
+						$$ = new Operande($1);
+					}
 				|	VarExpr SEP_CO ListIndices SEP_CF
 				|	VarExpr SEP_DOT TOK_IDENT %prec OP_DOT
 				|	VarExpr OP_PTR

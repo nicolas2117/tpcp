@@ -8,6 +8,7 @@
 #include <parser.hpp>
 #include <TableDesIdentificateurs.hpp>
 #include <TableDesSymboles.hpp>
+#include <Code3ad.hpp>
 
 extern FILE* yyin;
 extern int yyleng;
@@ -16,6 +17,7 @@ extern int yylex();
 extern int yyparse();
 extern TableDesIdentificateurs tableDesIdentificateurs;
 extern TableDesSymboles tableDesSymbolesDuProgramme;
+extern ConteneurCode conteneurCodeDuProgramme;
 
 int main(int argc, char *argv[])
 {
@@ -38,5 +40,7 @@ int main(int argc, char *argv[])
     
     tableDesIdentificateurs.afficher(std::cout);
     tableDesSymbolesDuProgramme.afficher(std::cout);
+    conteneurCodeDuProgramme.afficherCode3a();
+    
     return EXIT_SUCCESS;
 }

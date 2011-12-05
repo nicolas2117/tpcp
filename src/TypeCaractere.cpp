@@ -6,5 +6,5 @@ bool TypeCaractere::operator==(Type& type) {
 };
 
 void TypeCaractere::toString(std::ostream &flux) {
-    flux << "type:char";
+    flux << "char";
 };

@@ -6,5 +6,5 @@ bool TypeBool::operator==(Type& type) {
 };
 
 void TypeBool::toString(std::ostream &flux) {
-    flux << "type:boolean";
+    flux << "boolean";
 };

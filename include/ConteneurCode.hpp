@@ -19,6 +19,7 @@ public:
 
     void ajouterCode(Instruction* instruction);
     void ajouterCode(ConteneurCode* conteneur);
+    void afficherCode3a();
 private:
     std::vector<Instruction *> listeInstructions;
     

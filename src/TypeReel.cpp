@@ -6,5 +6,5 @@ bool TypeReel::operator==(Type& type) {
 };
 
 void TypeReel::toString(std::ostream &flux) {
-    flux << "type:real";
+    flux << "real";
 };

@@ -12,8 +12,7 @@
 
 class Instruction {
 public:
-    Instruction();
-    Instruction(Instruction& orig);
+    Instruction(Operande* operande1, Operande* operande2, Operande* operande3, int numeroInstruction);
     virtual ~Instruction();
 private:
     Operande* operande1;

@@ -8,12 +8,21 @@
 #ifndef CONTENEURCODE_HPP
 #define	CONTENEURCODE_HPP
 
+#include "Instruction.hpp"
+#include <vector>
+
 class ConteneurCode {
 public:
     ConteneurCode();
     ConteneurCode(ConteneurCode& orig);
     virtual ~ConteneurCode();
+
+    void ajouterCode(Instruction* instruction);
+    void ajouterCode(ConteneurCode* conteneur);
 private:
+    std::vector<Instruction *> listeInstructions;
+    
+    
 
 };
 

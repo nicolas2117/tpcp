@@ -12,8 +12,8 @@
 
 class Operande {
 public:
-    Operande(Valeur valeur);
     Operande(int identificateur);
+    Operande(Valeur* valeur);
     Operande(Operande& orig);
     virtual ~Operande();
 private:

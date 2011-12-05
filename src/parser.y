@@ -141,6 +141,7 @@ Program	        :   ProgramHeader SEP_SCOL Block SEP_DOT
 ProgramHeader   :   KW_PROGRAM TOK_IDENT 
                     { 
                         tableDesSymbolesDuProgramme.ajouterSymbole(new SymboleProgramme($2)); 
+						tableDesSymbolesDuProgramme.setIdContexte($2);
                     }
 				;
 

@@ -43,10 +43,16 @@ void TableDesSymboles::afficher(std::ostream &flux) {
      */
     unsigned int i;
     std::vector<TableDesSymboles *> tables;
+    std::string nomContexte, nomContexteParent;
 
+    nomContexte = tableDesIdentificateurs.getNom(this->idContexte);
+    if ( this->parent != NULL ) {
+        nomContexteParent = tableDesIdentificateurs.getNom(this->parent->idContexte);
+    } else {
+        nomContexteParent = "None";
+    }
 
-
-    flux << "+++SymbolTable(" << this->idContexte << ":" << 0 << ")" << std::endl;
+    flux << "+++SymbolTable(" << nomContexte << ":" << nomContexteParent << ")" << std::endl;
     for (i = 0; i < symboles.size(); i++) {
         symboles[i]->toString(flux);
         if (symboles[i]->getCategorie() == CATEGORIE_FONCTION) {

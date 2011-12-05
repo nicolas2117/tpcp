@@ -46,7 +46,7 @@ void TableDesSymboles::afficher(std::ostream &flux) {
 
 
 
-    flux << "+++SymbolTable(" << 0 << ":" << 0 << ")" << std::endl;
+    flux << "+++SymbolTable(" << this->nomContexte << ":" << 0 << ")" << std::endl;
     for (i = 0; i < symboles.size(); i++) {
         symboles[i]->toString(flux);
         if (symboles[i]->getCategorie() == CATEGORIE_FONCTION) {
@@ -67,8 +67,8 @@ TableDesSymboles* TableDesSymboles::getParent() {
     return this->parent;
 }
 
-void TableDesSymboles::setNomContexte(std::string nom) {
-    this->nomContexte = nom;
+void TableDesSymboles::setIdContexte(int nom) {
+    this->idContexte = nom;
 }
 
 

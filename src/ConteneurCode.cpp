@@ -23,8 +23,7 @@ void ConteneurCode::ajouterCode(Instruction* instruction) {
 }
 
 void ConteneurCode::ajouterCode(ConteneurCode* conteneur) {
-    this->listeInstructions += conteneur->listeInstructions;
-    for ( int i ; i < conteneur->listeInstructions.size() ; i++) {
-        this->listeInstructions.push_back();
+    for ( unsigned int i ; i < conteneur->listeInstructions.size() ; i++) {
+        this->listeInstructions.push_back(conteneur->listeInstructions[i]);
     }
 }

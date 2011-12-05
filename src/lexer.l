@@ -11,6 +11,9 @@
 #include <string>
 #include <vector>
 #include <Type.hpp>
+#include <Instruction.hpp>
+#include <ConteneurCode.hpp>
+#include <Operande.hpp>
 #include "parser.hpp"
 
 

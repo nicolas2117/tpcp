@@ -11,6 +11,9 @@
 #include <iostream>
 #include <Type.hpp>
 #include <GenerateurType.hpp>
+#include <Instruction.hpp>
+#include <ConteneurCode.hpp>
+#include <Operande.hpp>
 
 extern int yyerror ( char* );
 extern int yylex ();
@@ -20,6 +23,8 @@ TableDesSymboles *tableDesSymbolesCourante = &tableDesSymbolesDuProgramme;
 
 SymboleProcedure *symboleProcedure;
 SymboleFonction *symboleFonction;
+
+Symbole *symbole;
 
 TableDesSymboles *tableDesSymboles;
 bool nouvelleFonction = false; // Nouvelle fonction ou procédure
@@ -31,12 +36,16 @@ std::queue<int> fileId; // File d'identifiant
 %}
 
 %union{
+	Operande *operande;
+	Instruction *instruction;
+	ConteneurCode *conteneurCode;
     int id;
 	int valeurInteger;
     double valeurReal;
     bool valeurBoolean;
     std::string* valeurString;
     Type *type;
+	
 }
 
 %token KW_PROGRAM
@@ -105,6 +114,10 @@ std::queue<int> fileId; // File d'identifiant
 
 %type <id> FuncIdent ProcIdent
 %type <type> Type UserType BaseType FuncResult
+/*%type <operande>
+%type <instruction>
+%type <conteneurCode>*/
+
 
 %start Program
 
@@ -237,6 +250,7 @@ ProcHeader		:	ProcIdent
 					{
 						// Déclaration d'une procedure sans parametre.
 						tableDesSymboles = new TableDesSymboles(tableDesSymbolesCourante);
+						tableDesSymboles->setIdContexte($1);
 						symboleProcedure =  new SymboleProcedure($1, 0, tableDesSymboles);
 						tableDesSymbolesCourante->ajouterSymbole(symboleProcedure);
 						tableDesSymbolesCourante = symboleProcedure->getTableDesSymboles();  
@@ -245,6 +259,7 @@ ProcHeader		:	ProcIdent
 					{
 						// Déclaration d'une procedure avec parametre.
 						symboleProcedure =  new SymboleProcedure($1, 0, tableDesSymbolesCourante);
+						tableDesSymbolesCourante->setIdContexte($1);
 						tableDesSymbolesCourante->getParent()->ajouterSymbole(symboleProcedure);
 						nouvelleFonction = false;
 					}
@@ -319,6 +334,7 @@ FuncHeader		:	FuncIdent FuncResult
 					{
 						// Déclaration d'une fonction sans parametre.
 						tableDesSymboles = new TableDesSymboles(tableDesSymbolesCourante);
+						tableDesSymboles->setIdContexte($1);
 						symboleFonction = new SymboleFonction($1, $2, 0, tableDesSymboles);
 						tableDesSymbolesCourante->ajouterSymbole(symboleFonction);
 						tableDesSymbolesCourante = symboleFonction->getTableDesSymboles();  
@@ -327,6 +343,7 @@ FuncHeader		:	FuncIdent FuncResult
 					{
 						// Déclaration d'une fonction avec parametres.
 						symboleFonction =  new SymboleFonction($1, $3, 0, tableDesSymbolesCourante);
+						tableDesSymbolesCourante->setIdContexte($1);
 						tableDesSymbolesCourante->getParent()->ajouterSymbole(symboleFonction);
 						nouvelleFonction = false;
 					}
@@ -491,9 +508,20 @@ Call			:	TOK_IDENT Parameters
 					{
 						// Appel d'une fonction
 						// On vérifie que la fonction existe
-						tableDesSymbolesCourante->getSymbole($1);
+						symbole = (SymboleFonction *) tableDesSymbolesCourante->getSymbole($1);
+						if (symbole == NULL)
+						{
+							yyerror("La fonction n'est pas déclaré");
+						}
+						/*if (typeid(symbole) == typeid())
+						{
+		
+						}*/
 						// On vérifie le nombre d'arguments de la fonction
-
+						/*if (symbole->getArite() != arite)
+						{
+							yyerror("Mauvaise arite de la fonction");
+						}*/
 						arite = 0;
 					}
 				;

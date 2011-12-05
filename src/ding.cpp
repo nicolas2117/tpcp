@@ -2,6 +2,9 @@
 #include <cstdio>
 #include <iostream>
 #include <Type.hpp>
+#include <Instruction.hpp>
+#include <ConteneurCode.hpp>
+#include <Operande.hpp>
 #include <parser.hpp>
 #include <TableDesIdentificateurs.hpp>
 #include <TableDesSymboles.hpp>
